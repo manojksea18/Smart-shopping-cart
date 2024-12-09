@@ -8,7 +8,7 @@ const Sidebar =()=> {
         Admin Dashboard
       </div>
       <nav>
-        <Link to='/' className='flex flex-col'>
+        <Link to='/' className='flex flex-col space-y-2 p-4'>
         Dashboard
         </Link>
         <Link to ='cart-management'>
