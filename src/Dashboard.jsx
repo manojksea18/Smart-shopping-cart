@@ -1,7 +1,7 @@
 import { plugins } from 'chart.js';
 import React from 'react'
 import {Line } from "react-chartjs-2";
-import { pie } from "react-chartjs-2";
+// import { Pie } from "react-chartjs-2";
 
 const Dashboard=()=> {
 
@@ -17,7 +17,7 @@ const Dashboard=()=> {
                 tension: 0.4,
             },
         ],
-    },
+    }
 
     const lineChartOptions = {
         responsive : true,
@@ -25,8 +25,23 @@ const Dashboard=()=> {
             legend:{display:true , position :"top"},
         },
     };
+    // const pieChartData ={
+    //     labels: ["esewa", "Cash" , "Card"],
+    //     datasets:[
+    //         {
+    //             data: [45, 35, 20], // precentage of payment methods
+    //             backgroundColor:["#66BB6A", "#FFD54F", "#42A5F5"]
+    //         },
+    //     ],
+    // };
 
-  return (
+    // const pieChartOptions = {
+    //     responsive: true,
+    //     plugins:{
+    //         legend:{ display:true , postions: "right"}
+    //     },
+    // };
+    return (
     <div className='space-y-6'>
         <div className='grid grid-cols-3 gap-4' >
             <div className='p-4 bg-white rounded shadow'>
@@ -54,10 +69,11 @@ const Dashboard=()=> {
             </div>
             </div>
 
-            <div className='p-4 bg-white rounded shadow'>
+            {/* <div className='p-4 bg-white rounded shadow'>
             <h3 className='text-lg font-bold'>Payment Methods</h3>
-            <div className='h-40 bg-gray-100'>[ pie Chart Placeholder]</div>
-            </div>
+            <div className='h-40 '>
+            <Line data={pieChartData} options={pieChartOptions}/> </div>
+            </div> */}
         </div>
         <div className='p-4 bg-white rounded shadow'>
             <h3 className='text-lg font-bold'>Recent Activity</h3>
