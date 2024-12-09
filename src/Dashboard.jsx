@@ -18,6 +18,7 @@ const Dashboard=()=> {
                 backgroundColor: "rgba(54,162, 235, 0.2)",
                 borderWidth:2,
                 tension: 0.4,
+                pointRadius: 3,
             },
         ],
     }
@@ -27,6 +28,18 @@ const Dashboard=()=> {
         plugins:{
             legend:{display:true , position :"top"},
         },
+        // scales: {
+        //     x: {
+        //       grid: {
+        //         display: false,
+        //       },
+        //     },
+        //     y: {
+        //       grid: {
+        //         drawBorder: false,
+        //       },
+        //     },
+        //   },
     };
     const pieChartData ={
         labels: ["esewa", "Cash" , "Card"],
@@ -50,10 +63,14 @@ const Dashboard=()=> {
     };
     return (
     <div className='space-y-6'>
-        <div className='h-20 bg-white font-bold text-lg  p-4 rounded shadow-sm'>
+        <div className='h-20 bg-white font-bold text-lg  p-4 rounded shadow-sm flex items-center justify-between'>
             <h1 className='mt-2'>Dashboard</h1>
-        <div className='w-10 h-10 rounded-full bg-gray-200 flex flex-1 '>
-            <h2 className='ml-5'>  MK</h2>
+            <div className="text-left">
+            <p className="text-sm font-bold ml-5">Manoj Khati</p>
+            <p className="text-xs text-gray-600">Store Manager</p>
+          </div>
+        <div className='w-12 h-12 rounded-full bg-gray-200   '>
+            <h2 className='text-center'>  MK</h2>
         </div>
         
         </div>
@@ -76,19 +93,20 @@ const Dashboard=()=> {
             <p className='text-2xl'>378</p>
             <p className='text-sm text-green-600'>↑ 8.3% from last month</p>
             </div>
-
-            <div className='grid grid-cols-1  bg-white p-4  rounded shadow'>
+           
+            <div className='col-span-2 bg-white p-4  rounded shadow'>
             <h3 className='text-lg font-bold'>Monthly Sales Trend</h3>
-            <div className='h-40 '>
-                <Line data={lineChartData} options={lineChartOptions}/>
+            <div className='h-72  '>
+                <Line data={lineChartData} options={lineChartOptions} />
             </div>
             </div>
-
-            <div className='p-4 bg-white rounded shadow text-center flex justify-end '>
-            <h3 className='text-lg font-bold'>Payment Methods</h3>
-            <div className='h-40 '>
-            <Pie data={pieChartData} options={pieChartOptions}/> </div>
+            
+            <div className='col-span-1 p-4 bg-white rounded shadow  '>
+            <h3 className='text-lg font-bold flex items-center '>Payment Methods</h3>
+            <div className='h-72 w-full '>
+            <Pie data={pieChartData} options={pieChartOptions} /> </div>
             </div>
+            
         </div>
         <div className='p-4 bg-white rounded shadow h-52'>
             <h3 className='text-lg font-bold'>Recent Activity</h3>
