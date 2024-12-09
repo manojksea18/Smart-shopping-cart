@@ -34,7 +34,7 @@ const Dashboard=()=> {
             {
                 data: [50, 35, 20], // precentage of payment methods
                 backgroundColor:["#66BB6A", "#FFD54F", "#42A5F5"],
-                // hoverBackgroundColor: ["#66BB6A", "#FFD54F", "#42A5F5"], // Colors on hover
+                hoverBackgroundColor: ["#66BB6A", "#FFD54F", "#42A5F5"], // Colors on hover
                 borderWidth: 2
             },
         ],
@@ -52,7 +52,12 @@ const Dashboard=()=> {
     <div className='space-y-6'>
         <div className='h-20 bg-white font-bold text-lg  p-4 rounded shadow-sm'>
             <h1 className='mt-2'>Dashboard</h1>
+        <div className='w-10 h-10 rounded-full bg-gray-200 flex flex-1 '>
+            <h2 className='text-right'>  MK</h2>
         </div>
+        
+        </div>
+        
         <div className='grid grid-cols-3 gap-4' >
             <div className='p-4 bg-white rounded shadow'>
             <h3 className='text-lg font-bold'> Total Sales</h3>
@@ -74,7 +79,7 @@ const Dashboard=()=> {
 
             <div className='grid grid-cols-1  bg-white p-4  rounded shadow'>
             <h3 className='text-lg font-bold'>Monthly Sales Trend</h3>
-            <div className='h-40'>
+            <div className='h-40 '>
                 <Line data={lineChartData} options={lineChartOptions}/>
             </div>
             </div>
@@ -85,13 +90,13 @@ const Dashboard=()=> {
             <Pie data={pieChartData} options={pieChartOptions}/> </div>
             </div>
         </div>
-        <div className='p-4 bg-white rounded shadow'>
+        <div className='p-4 bg-white rounded shadow h-52'>
             <h3 className='text-lg font-bold'>Recent Activity</h3>
             <ul className='text-sm space-y-1'>
-            <li>Ramesh Sharma - Cart A001 Completed</li>
-          <li>Sita Nepali - Cart B001 Pending Payment</li>
-          <li>Hari Bahadur - Cart C001 Cancelled</li>
-          <li>Mina Tamang - Cart D001 Processing</li>
+            <li>Anamika Rai - Cart A001 Completed</li>
+          <li>Gagan Pradhan - Cart B001 Pending Payment</li>
+          <li>Manoj Khati - Cart C001 Cancelled</li>
+          <li>Suman Pokharel - Cart D001 Processing</li>
 
             </ul>
         </div>
