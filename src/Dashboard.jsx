@@ -1,7 +1,10 @@
-import { plugins } from 'chart.js';
+// import { plugins } from 'chart.js';
 import React from 'react'
-import {Line } from "react-chartjs-2";
-// import { Pie } from "react-chartjs-2";
+import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Title, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Line } from "react-chartjs-2";
+ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement,ArcElement, Title, Tooltip, Legend);
+
+import { Pie } from "react-chartjs-2";
 
 const Dashboard=()=> {
 
@@ -10,7 +13,7 @@ const Dashboard=()=> {
         datasets:[
             {
                 label:"Monthly Sales (NPR)",
-                data : [15000,25000, 40000, 30000, 45000,50000, 600000, 55000, 70000,75000, 65000, 80000],
+                data : [15000,400000, 40000, 30000, 45000,50000, 600000, 55000, 70000,75000, 65000, 80000],
                 borderColor: "rgba(54,162,235, 1)",
                 backgroundColor: "rgba(54,162, 235, 0.2)",
                 borderWidth:2,
@@ -25,24 +28,31 @@ const Dashboard=()=> {
             legend:{display:true , position :"top"},
         },
     };
-    // const pieChartData ={
-    //     labels: ["esewa", "Cash" , "Card"],
-    //     datasets:[
-    //         {
-    //             data: [45, 35, 20], // precentage of payment methods
-    //             backgroundColor:["#66BB6A", "#FFD54F", "#42A5F5"]
-    //         },
-    //     ],
-    // };
+    const pieChartData ={
+        labels: ["esewa", "Cash" , "Card"],
+        datasets:[
+            {
+                data: [50, 35, 20], // precentage of payment methods
+                backgroundColor:["#66BB6A", "#FFD54F", "#42A5F5"],
+                // hoverBackgroundColor: ["#66BB6A", "#FFD54F", "#42A5F5"], // Colors on hover
+                borderWidth: 2
+            },
+        ],
+    };
 
-    // const pieChartOptions = {
-    //     responsive: true,
-    //     plugins:{
-    //         legend:{ display:true , postions: "right"}
-    //     },
-    // };
+    const pieChartOptions = {
+        responsive: true,
+        plugins:{
+            legend:{ display:true , postions: "right"
+                
+            }
+        },
+    };
     return (
     <div className='space-y-6'>
+        <div className='h-20 bg-white font-bold text-lg  p-4 rounded shadow-sm'>
+            <h1 className='mt-2'>Dashboard</h1>
+        </div>
         <div className='grid grid-cols-3 gap-4' >
             <div className='p-4 bg-white rounded shadow'>
             <h3 className='text-lg font-bold'> Total Sales</h3>
@@ -62,26 +72,26 @@ const Dashboard=()=> {
             <p className='text-sm text-green-600'>↑ 8.3% from last month</p>
             </div>
 
-            <div className='p-4 bg-white rounded shadow'>
+            <div className='grid grid-cols-1  bg-white p-4  rounded shadow'>
             <h3 className='text-lg font-bold'>Monthly Sales Trend</h3>
-            <div className='h-40 '>
+            <div className='h-40'>
                 <Line data={lineChartData} options={lineChartOptions}/>
             </div>
             </div>
 
-            {/* <div className='p-4 bg-white rounded shadow'>
+            <div className='p-4 bg-white rounded shadow text-center flex justify-end '>
             <h3 className='text-lg font-bold'>Payment Methods</h3>
             <div className='h-40 '>
-            <Line data={pieChartData} options={pieChartOptions}/> </div>
-            </div> */}
+            <Pie data={pieChartData} options={pieChartOptions}/> </div>
+            </div>
         </div>
         <div className='p-4 bg-white rounded shadow'>
             <h3 className='text-lg font-bold'>Recent Activity</h3>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
+            <ul className='text-sm space-y-1'>
+            <li>Ramesh Sharma - Cart A001 Completed</li>
+          <li>Sita Nepali - Cart B001 Pending Payment</li>
+          <li>Hari Bahadur - Cart C001 Cancelled</li>
+          <li>Mina Tamang - Cart D001 Processing</li>
 
             </ul>
         </div>
