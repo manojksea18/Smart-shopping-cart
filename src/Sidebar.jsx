@@ -3,20 +3,20 @@ import { Link } from "react-router-dom";
 
 const Sidebar =()=> {
   return (
-    <div className='w-64 h-screen border-r shadow-md bg-gray-200 '>
+    <div className='w-64 h-screen border-r shadow-md bg-white '>
       <div className='p-5 text-lg font-bold '>
         Admin Dashboard
       </div>
-      <nav>
-        <Link to='/' className='flex flex-col space-y-2 p-4'>
+      <nav className='flex flex-col space-x-2 p-3' >
+        <Link to='/' className=' hover:bg-gray-200 p-1 rounded'>
         Dashboard
         </Link>
-        <Link to ='cart-management'>
+        <Link to ='cart-management' className=' hover:bg-gray-200 p-2 rounded'>
         Cart Management
         </Link>
-        <a href='#'> Users</a>
-        <a href='#'> Reports</a>
-        <a href='#'> Settings</a>
+        <a href='#'className=' hover:bg-gray-200 p-2 rounded'> Users</a>
+        <a href='#'className=' hover:bg-gray-200 p-2 rounded'> Reports</a>
+        <a href='#'className=' hover:bg-gray-200 p-2 rounded'> Settings</a>
 
 
       </nav>
