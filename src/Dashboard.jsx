@@ -53,7 +53,7 @@ const Dashboard=()=> {
         <div className='h-20 bg-white font-bold text-lg  p-4 rounded shadow-sm'>
             <h1 className='mt-2'>Dashboard</h1>
         <div className='w-10 h-10 rounded-full bg-gray-200 flex flex-1 '>
-            <h2 className='text-right'>  MK</h2>
+            <h2 className='ml-5'>  MK</h2>
         </div>
         
         </div>
