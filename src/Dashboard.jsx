@@ -62,15 +62,16 @@ const Dashboard=()=> {
         },
     };
     return (
-    <div className='space-y-6'>
+    <div className='space-y-6 mt-0'>
         <div className='h-20 bg-white font-bold text-lg  p-4 rounded shadow-sm flex items-center justify-between'>
-            <h1 className='mt-2'>Dashboard</h1>
-            <div className="text-left">
-            <p className="text-sm font-bold ml-5">Manoj Khati</p>
-            <p className="text-xs text-gray-600">Store Manager</p>
-          </div>
-        <div className='w-12 h-12 rounded-full bg-gray-200   '>
-            <h2 className='text-center'>  MK</h2>
+            <h1 className=''>Dashboard</h1>
+            
+        <div className='flex flex-row '>
+         <div className='mr-10 '>
+         <p className="text-sm font-bold ">Manoj Khati</p>
+            <p className="text-xs ">Store Manager</p>
+            </div>   
+            <h2 className='h-12 w-12 bg-gray-400 rounded-full text-center '>  MK</h2>
         </div>
         
         </div>
