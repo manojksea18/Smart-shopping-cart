@@ -14,7 +14,9 @@ const Sidebar =()=> {
         <Link to ='cart-management' className=' hover:bg-gray-200 p-2 rounded'>
         Cart Management
         </Link>
-        <a href='#'className=' hover:bg-gray-200 p-2 rounded'> Users</a>
+        <Link to ='users-management' className=' hover:bg-gray-200 p-2 rounded'>
+        Users 
+        </Link>
         <a href='#'className=' hover:bg-gray-200 p-2 rounded'> Reports</a>
         <a href='#'className=' hover:bg-gray-200 p-2 rounded'> Settings</a>
 
