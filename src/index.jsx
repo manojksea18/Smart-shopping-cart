@@ -4,6 +4,7 @@ import Dashboard from "./Dashboard";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Cart from "./Cart";
 import Users from "./Users";
+import Setting from "./Setting";
 
 function Index(){
     return(
@@ -15,6 +16,8 @@ function Index(){
                 <Route path='/' element={<Dashboard/>}/>
                 <Route path='/cart-management' element={<Cart />}/>
                 <Route path='/users-management' element={<Users />}/>
+                <Route path='/settings' element={<Setting />}/>
+
             </Routes>
                 </div>
             </div>

@@ -17,8 +17,10 @@ const Sidebar =()=> {
         <Link to ='users-management' className=' hover:bg-gray-200 p-2 rounded'>
         Users 
         </Link>
+        <Link to ='settings' className=' hover:bg-gray-200 p-2 rounded'>
+        setting 
+        </Link>
         <a href='#'className=' hover:bg-gray-200 p-2 rounded'> Reports</a>
-        <a href='#'className=' hover:bg-gray-200 p-2 rounded'> Settings</a>
 
 
       </nav>
