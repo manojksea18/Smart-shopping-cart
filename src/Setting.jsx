@@ -29,8 +29,14 @@ const Setting=()=> {
 
       </div>
        {/* Security Settings Section */}
-       <div>
-        <h3>Security Settings</h3>
+       <div className='p-5 bg-white rounded shadow space-y-4'>
+        <h3 className='text-lg font-bold'>Security Settings</h3>
+        <div>
+          <div>
+            <label className=' w-screen-2 border border-gray-300'>Current Password</label>
+          </div>
+        </div>
+        
        </div>
 
       
