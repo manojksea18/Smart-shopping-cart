@@ -31,13 +31,36 @@ const Setting=()=> {
        {/* Security Settings Section */}
        <div className='p-5 bg-white rounded shadow space-y-4'>
         <h3 className='text-lg font-bold'>Security Settings</h3>
-        <div>
+        <div className='grid grid-cols-2 gap-4'>
           <div>
             <label className=' w-screen-2 border border-gray-300'>Current Password</label>
+            <input
+            type='password'
+            placeholder='********'
+            className='w-full p-2 border border-gray-300 rounded'/>
           </div>
+          <div>
+            <label className=' w-screen-2 border border-gray-300'>New Password</label>
+            <input
+            type='password'
+            placeholder='Enter new password'
+            className='w-full p-2 border border-gray-300 rounded'/>
+          </div>
+          <div>
+            <label className=' w-screen-2 border border-gray-300'>Conform New Password</label>
+            <input
+            type='password'
+            placeholder='conform new password'
+            className='w-full p-2 border border-gray-300 rounded'/>
+          </div>
+          <button className='mt-6 h-10 text-white bg-blue-600 rounded hover:bg-blue-700'> Save Changes</button>
+
         </div>
-        
        </div>
+       <div className='p-4  bg-white rounded shadow flex justify-between items-center'> 
+        <h3 className='text-lg font-bold '>Two-Factor Authentication</h3>
+        <button className='px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700'>Enable</button>
+        </div>
 
       
     </div>
