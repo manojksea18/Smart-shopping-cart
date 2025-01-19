@@ -1,5 +1,27 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import {getById} from '../services/adminServices';
 const Setting=()=> {
+    // State for name and email
+  const [name, setName]= useState('');
+  const [email, setEmail]= useState('');
+
+  useEffect(()=>{
+    const fetchData = async () => {
+      try{
+        const adminId ="678a957881b5215f31600f77";
+        const data = await getById(adminId);
+        setName(data.name);
+        setEmail(data.email);
+      }catch(error){
+        console.error('Error fetching data:', error);
+
+      }
+
+    };
+    fetchData();
+  },[]);
+
+
   return (
     <div className='p-6 space-y-6 h-screen'>
       <h2 className='text-lg font-bold p-6 bg-white'>Settings</h2>
@@ -10,7 +32,8 @@ const Setting=()=> {
             <label className=' w-screen-2 border border-gray-300' >Name</label>
             <input
             type='text'
-            // value=""
+            value={name}
+            onChange={(e)=>setName(e.target.value)}
             placeholder='name'
 
             className='w-full p-2 border-gray-300 rounded'
@@ -21,7 +44,8 @@ const Setting=()=> {
             <label className=' w-screen-2 border border-gray-300'>Email</label>
             <input
             type='email'
-            // value=""
+            value={email}
+            onChange={(e)=>setEmail(e.target.value)}
             placeholder='email'
             className='w-full p-2 border-gray-300 rounded'
             

@@ -1,23 +1,17 @@
 // Import the Axios instance configured for API requests
-const axios = require('axios');
-import axiosInstance from "./RequestInstance";
+import axios from 'axios';
 
 // Define the base URL for restaurant-related API endpoints
-const adminURL = "http://localhost:8080/admin/add";
-
-
-
-
+const adminURL = "http://localhost:8080/admin/";
 
 
 
 // Function to add a product by sending a POST request
-export const addAdmin = async (adminD) => {
+ export const addAdmin = async (adminD) => {
     try{
-  // Send a POST request to create a new product with the provided data
-  const response = await axiosInstance.post(
-    adminURL + "addadmin", // Concatenate base URL with the endpoint for creating a product
-    adminD // The data for creating the product
+  const response = await axios.post(
+    adminURL + "add", 
+    adminD 
   );
 
   // Return the HTTP status code of the response
@@ -30,6 +24,34 @@ catch(error){
 };
 
 
+export const getAll =async ()=>{
+  try{
+  const response = await axios.get(
+    adminURL 
+
+  );
+  return response.status;
+}
+catch(error){
+  console.error("Error fetching all admins", error);
+  throw error;
+}
+};
+
+export const getById =async (adminD)=>{
+  try{
+  const response = await axios.get(
+    adminURL +"id",
+    adminD
+
+  );
+  return response.status;
+}
+catch(error){
+  console.error("Error fetching all admins", error);
+  throw error;
+}
+};
 
 
 
