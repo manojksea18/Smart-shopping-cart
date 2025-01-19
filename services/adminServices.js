@@ -5,7 +5,6 @@ import axios from 'axios';
 const adminURL = "http://localhost:8080/admin/";
 
 
-
 // Function to add a product by sending a POST request
  export const addAdmin = async (adminD) => {
     try{
@@ -41,7 +40,7 @@ catch(error){
 export const getById =async (adminD)=>{
   try{
   const response = await axios.get(
-    adminURL +"id",
+    adminURL +"id/",
     adminD
 
   );
