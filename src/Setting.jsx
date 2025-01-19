@@ -7,21 +7,24 @@ const Setting=()=> {
         <h3 className='font-bold text-lg'>Profile settings</h3>
         <div className='grid grid-cols-2 gap-4'>
           <div>
-            <label>Name</label>
+            <label className=' w-screen-2 border border-gray-300' >Name</label>
             <input
             type='text'
-            value="Manoj Khati"
+            // value=""
+            placeholder='name'
+
             className='w-full p-2 border-gray-300 rounded'
-            disabled
+            
             />
           </div>
           <div>
-            <label>Email</label>
+            <label className=' w-screen-2 border border-gray-300'>Email</label>
             <input
             type='email'
-            value="manojkhati321@gmail.com"
+            // value=""
+            placeholder='email'
             className='w-full p-2 border-gray-300 rounded'
-            disabled
+            
             />
           </div>
 
