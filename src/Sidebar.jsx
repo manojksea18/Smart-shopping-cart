@@ -10,7 +10,6 @@ const Sidebar =()=> {
         Admin Dashboard
       </div>
       <nav className='flex flex-col space-x-2 p-3' >
-     
         <Link to='/dash' className=' hover:bg-gray-200 p-1 rounded'>
         Dashboard
         </Link>
