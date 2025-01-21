@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {getById} from '../services/adminServices';
 
-const Setting=()=> {
+const Setting=(props)=> {
     // State for name and email
   const [username, setName]= useState('');
   const [email, setEmail]= useState('');
@@ -10,44 +10,68 @@ const Setting=()=> {
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [formError, setFormError] = useState("");
+  const [saving, setSaving] = useState(false);
 
+const[user, setUser]=useState({
+  adminId:"",
+  username:"",
+  email:"",
+  password:""
+
+})
+
+  const getAdmin=async()=>{
+    const response=await getById(props.adminId, user)
+    console.log(response)
+  }
 
   useEffect(()=>{
-    const fetchData = async () => {
-      try{
-        const adminId ="678a957881b5215f31600f77";
-        const data = await getById(adminId);
-        console.log("API Response:", data); 
-        if(data && data.username && data.email){
-        setName(data.username);
-        setEmail(data.email);
-        }else{
-          setError('No data returned from the API.');
-
-        }
-      }catch(error){
-        console.error('Error fetching data:', error);
-        setError('Failed to load profile data');
-
-      }finally {
-        setLoading(false);
-      }
-
-    };
-    fetchData();
+   
+    getAdmin();
   },[]);
 
+  // useEffect(()=>{
+  //   const fetchData = async () => {
+  //     try{
+  //       const data = await getById(PaymentResponse.adminId);
+  //       console.log("API Response:", data); 
+  //       if(data && data.username && data.email){
+  //       setName(data.username);
+  //       setEmail(data.email);
+  //       }else{
+  //         setError('No data returned from the API.');
+
+  //       }
+  //     }catch(error){
+  //       console.error('Error fetching data:', error);
+  //       setError('Failed to load profile data');
+
+  //     }finally {
+  //       setLoading(false);
+  //     }
+
+  //   };
+  //   fetchData();
+  // },[]);
+
   const handelSaveChanges=()=>{
+    setFormError("");
     if (newPassword!==confirmNewPassword){
-      alert('New password  do not match');
+      setFormError('New password  do not match');
       return;
     }
     if (newPassword.length < 6) {
-      alert('Password must be at least 6 characters long');
+      setFormError('Password must be at least 6 characters long');
       return;
     }
 
-    alert('changes saved!'); 
+    setSaving(true);
+
+    setTimeout(()=>{
+      setSaving(false);
+      alert("change saved!");
+    }, 1000);
   }
   if (loading) return <div className='text-2xl font-bold'>Loading...</div>;
   if (error) return <div>{error}</div>;
@@ -69,7 +93,7 @@ const Setting=()=> {
 
             className='w-full p-2 border-gray-300 rounded'
             
-            />
+            ></input>
           </div>
           <div>
             <label className=' w-screen-2 border border-gray-300'>Email</label>
@@ -117,9 +141,11 @@ const Setting=()=> {
             placeholder='conform new password'
             className='w-full p-2 border border-gray-300 rounded'/>
           </div>
+          {formError && <div className="text-red-500 col-span-2">{formError}</div>}
           <button 
           onClick={handelSaveChanges}
-          className='mt-6 h-10 text-white bg-blue-600 rounded hover:bg-blue-700'> 
+          className='mt-6 h-10 text-white bg-blue-600 rounded hover:bg-blue-700' disabled={saving}
+          aria-label="Save Changes"> 
           Save Changes</button>
 
         </div>
