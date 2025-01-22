@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { login } from "../services/adminServices";
+import { Navigate, useNavigate } from "react-router-dom";
 
 // import { useAuth } from '../AuthContext';
 // import { useNavigate } from 'react-router-dom';
@@ -10,6 +11,10 @@ const LoginPage=()=>{
     const[username ,setUsername]=useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(''); 
+    const [isAuthenticated, setIsAuthenticated] = useState(false); // Track authentication status
+    const [loading, setLoading] = useState(false); // Track loading state
+    const navigate = useNavigate(); // For navigation after successful login
+
     // const auth = useAuth();
     // const navigate = useNavigate();
     
@@ -17,21 +22,20 @@ const LoginPage=()=>{
         e.preventDefault();
         setError("");
         setLoading(true);
+        // const username = 'admin';  // The username entered by the user
+        // const password = 'admin@123'; 
 
     try {
-        const response = await axios.post("http://localhost:8080/login", {
-          username,
-          password,
-        });
+      const response = await login(username, password);
 
-        if(response.status===200){
-            console.log("Login successful", response.data);
-            localStorage.setItem("token", response.data.token);
+        if(response.status === 200){
+            console.log("Login successful", response.token);
+            localStorage.setItem("token", response.data);
+            setIsAuthenticated(true); // Update authentication state
             alert("Login successful!");
-
-            Navigate("/dash");
-
-        } else{
+            navigate('/dash');;
+        } 
+        else{
             setError("Invalid username or password");
         }
     } catch(err){
@@ -72,7 +76,8 @@ const LoginPage=()=>{
           />
         </div>
         <button
-        type="submit" 
+        type="submit"
+        disabled={loading} 
         className='px-4 py-2 font-semibold rounded bg-blue-400 mt-5'>
         Submit</button>
         </form>

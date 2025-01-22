@@ -48,7 +48,33 @@ export const getById = async (adminId) => {
   }
 };
 
+export const login = async (username, password) => {
+  try {
+    // Send the login request with the username and password
+    const response = await axios.post(
+      adminURL + "login", // Login endpoint on the backend
+      {
+        username,
+        password,
+      }
+    );
 
+    // Assuming the backend sends back a JWT token upon successful login
+    const token = response.data.token;
+
+    // You can store the token in local storage, session storage, or in-memory
+    localStorage.setItem('authToken', token); // Or any other storage option
+
+    // Return the HTTP status code or token
+    return {
+      status: response.status,
+      token: token,
+    };
+  } catch (error) {
+    console.error("Error during login:", error);
+    throw error; // You can handle this error in your UI components
+  }
+};
 
 
 
