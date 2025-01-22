@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 // Define the base URL for restaurant-related API endpoints
-const adminURL = "http://localhost:8080/admin/:id";
+const adminURL = "http://localhost:8080/admin/";
 
 
 // Function to add a product by sending a POST request
