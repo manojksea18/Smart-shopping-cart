@@ -66,23 +66,55 @@ const Setting=(props)=> {
   //   fetchData();
   // },[]);
 
-  const handelSaveChanges= () =>{
+  const handleClickShowPassword = () => {
+    setValues({
+        ...values,
+        showPassword: !values.showPassword,
+    });
+};
+  const handelSaveChanges= async() =>{
     setFormError("");
+
+    //Validate password fields
     if (newPassword!==confirmNewPassword){
       setFormError('New password  do not match');
       return;
     }
-    if (newPassword.length < 6) {
+    if (newPassword.length > 0 && newPassword.length < 6) {
       setFormError('Password must be at least 6 characters long');
       return;
     }
 
     setSaving(true);
 
-    setTimeout(()=>{
+    try{
+      const payload ={
+        username,
+        email,
+        currentPassword,
+        newPassword: newPassword || null,
+      };
+
+      // call the backend service to save data
+      const response = await getById(props.adminId, payload);
+      if (response && response.success){
+        alert('Changes saved successfully!');
+        setCurrentPassword('');
+        setNewPassword('');
+        setConfirmNewPassword('');
+
+      } else{
+        throw new Error(response.message || 'Failed to save changes');
+      }
+    } catch(err){
+      console.error('error saving changes:',err);
+      setFormError(err.message || 'An unexpected error occured');
+
+    } finally{
       setSaving(false);
-      alert("change saved!");
-    }, 1000);
+    }
+
+   
   };
   if (loading) return <div className='text-2xl font-bold'>Loading...</div>;
   if (error) return <div>{error}</div>;
@@ -95,7 +127,7 @@ const Setting=(props)=> {
         <h3 className='font-bold text-lg'>Profile settings</h3>
         <div className='grid grid-cols-2 gap-4'>
           <div>
-            <label className=' w-screen-2 border border-gray-300' >Name</label>
+            <label className=' w-screen-2 border border-gray-300' >Username</label>
             <input
             type='text'
             value={username}
@@ -132,6 +164,7 @@ const Setting=(props)=> {
             value={currentPassword}
             onChange={(e) => setCurrentPassword(e.target.value)}
             placeholder='********'
+          
             className='w-full p-2 border border-gray-300 rounded'/>
           </div>
           <div>
@@ -149,7 +182,7 @@ const Setting=(props)=> {
             type='password'
             value={confirmNewPassword}
             onChange={(e) => setConfirmNewPassword(e.target.value)}
-            placeholder='conform new password'
+            placeholder='confirm new password'
             className='w-full p-2 border border-gray-300 rounded'/>
           </div>
           {formError && <div className="text-red-500 col-span-2">{formError}</div>}
