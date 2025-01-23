@@ -13,21 +13,32 @@ const Setting=(props)=> {
   const [formError, setFormError] = useState("");
   const [saving, setSaving] = useState(false);
 
-const[user, setUser]=useState({
-  adminId:"",
-  username:"",
-  email:"",
-  password:""
 
-})
+
+  // function to fetch admin data by ID
 
   const getAdmin=async()=>{
-    const response=await getById(props.adminId, user)
-    console.log(response)
+    try{
+    const response=await getById(props.adminId);
+    console.log("API Response",response);
+
+    if(response){
+      setName(response.username || '');
+      setEmail(response.email || '');
+    } else{
+      setError('No data returned from the API');
+    }
+  } catch(err){
+    console.log('Error Fetching admin data;', err);
+    setError('Failed to load profile data.');
+
+  } finally{
+    setLoading(false);
   }
+};
 
   useEffect(()=>{
-   
+
     getAdmin();
   },[]);
 
@@ -55,7 +66,7 @@ const[user, setUser]=useState({
   //   fetchData();
   // },[]);
 
-  const handelSaveChanges=()=>{
+  const handelSaveChanges= () =>{
     setFormError("");
     if (newPassword!==confirmNewPassword){
       setFormError('New password  do not match');
@@ -72,7 +83,7 @@ const[user, setUser]=useState({
       setSaving(false);
       alert("change saved!");
     }, 1000);
-  }
+  };
   if (loading) return <div className='text-2xl font-bold'>Loading...</div>;
   if (error) return <div>{error}</div>;
 
@@ -133,7 +144,7 @@ const[user, setUser]=useState({
             className='w-full p-2 border border-gray-300 rounded'/>
           </div>
           <div>
-            <label className=' w-screen-2 border border-gray-300'>Conform New Password</label>
+            <label className=' w-screen-2 border border-gray-300'>Confirm New Password</label>
             <input
             type='password'
             value={confirmNewPassword}
@@ -159,5 +170,6 @@ const[user, setUser]=useState({
     </div>
   )
 }
+
 
 export default Setting;
