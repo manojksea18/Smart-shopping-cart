@@ -5,6 +5,9 @@ import axios from 'axios';
 const adminURL = "http://localhost:8080/admin/";
 
 
+
+
+
 // Function to add a product by sending a POST request
  export const addAdmin = async (adminId) => {
     try{
@@ -78,6 +81,24 @@ export const login = async (username, password) => {
     throw error; // You can handle this error in your UI components
   }
 };
+
+
+export const getUserIdByToken = async(authToken)=>{
+  
+  try{
+
+    // console.log("-----------------");
+    const response = await axios.get(`http://localhost:8080/helper/getId?token=${authToken}`);
+    console.log("-----------------");
+    return response.data;
+   
+  } 
+  catch(error){
+    console.error('Error in getUserIdByToken:', error);
+    throw new Error('Failed to retrieve user ID');
+
+  }
+}
 
 
 

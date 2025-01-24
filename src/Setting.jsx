@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {getById, updateAdmin} from '../services/adminServices';
+import {getById, getUserIdByToken, updateAdmin} from '../services/adminServices';
 
 const Setting=()=> {
     // State for name and email
@@ -15,30 +15,57 @@ const Setting=()=> {
 
 
 
-  // Fetch admin data by ID
-  const getAdmin = async (adminId) => {
+  const getAdmin = async () => {
     try {
-      const response = await getById(adminId); // Fetch admin data
-      if (response) {
-        setName(response.username || '');
-        setEmail(response.email || '');
-      } else {
-        setError('No data returned from the API');
+
+      //Get token from localStorage 
+      const authToken = localStorage.getItem('authToken');
+      console.log('Token:', authToken);
+      if(!authToken) throw new Error("Token not found in localStorage.");
+
+      // call API to get userId
+
+      const userIdResponse = await getUserIdByToken(authToken);
+      if(!userIdResponse || !userIdResponse.userId){
+        throw new Error ('Failed to retrive user ID.');
       }
-    } catch (err) {
-      console.error('Error Fetching admin data:', err);
-      setError('Failed to load profile data.');
-    } finally {
+      const userId = userIdResponse.userId;
+
+
+      // use userId to fetch userdata
+
+      const userData = await getById(userId);
+      if(userData){
+        setName(userData.username || '');
+        setEmail(userData.email || '');
+      } else{
+        throw new Error('Failed to fetch user data.');
+      }
+    } catch(err){
+      console.error('Error fetching admin data:',err);
+      setError(err.message || 'An unexpected error occured.');
+
+    }finally{
       setLoading(false);
     }
   };
 
+
   useEffect(() => {
+    
+    getAdmin();
     
   }, []);
 
   const handelSaveChanges = async () => {
+
     setFormError('');
+
+    if (!username.trim() || !email.trim()) {
+      setFormError('Username and email cannot be empty.');
+      return;
+  }
+
 
     if (newPassword !== confirmNewPassword) {
       setFormError('New passwords do not match');
@@ -50,6 +77,8 @@ const Setting=()=> {
     }
 
     setSaving(true);
+    // console.log('===========');
+
 
     try {
       const payload = {
@@ -58,9 +87,14 @@ const Setting=()=> {
         currentPassword,
         newPassword: newPassword || null,
       };
+        // Get userId from localStorage or the fetched data
+    const authToken = localStorage.getItem('authToken');
+    const userIdResponse = await getUserIdByToken(authToken);
+    const adminId = userIdResponse.userId;
+
 
       // Call the backend service to save data
-      const response = await updateAdmin(props.adminId, payload);
+      const response = await updateAdmin(adminId, payload);
       if (response && response.success) {
         alert('Changes saved successfully!');
         setCurrentPassword('');
@@ -78,109 +112,109 @@ const Setting=()=> {
   };
 
 
-  // function to fetch admin data by ID
+//   // function to fetch admin data by ID
 
-//   const getAdmin = async(adminId)=>{
-//     try{
-//       const payload ={   
-//         username,
-//         email,
-//         currentPassword,
-//         newPassword,
-//     }
-//     const response= await updateAdmin(adminId,payload);
-//     console.log("API Response",response);
+// //   const getAdmin = async(adminId)=>{
+// //     try{
+// //       const payload ={   
+// //         username,
+// //         email,
+// //         currentPassword,
+// //         newPassword,
+// //     }
+// //     const response= await updateAdmin(adminId,payload);
+// //     console.log("API Response",response);
 
-//     if(response){
-//       setName(response.username || '');
-//       setEmail(response.email || '');
-//     } else{
-//       setError('No data returned from the API');
-//     }
-//   } catch(err){
-//     console.log('Error Fetching admin data;', err);
-//     setError('Failed to load profile data.');
+// //     if(response){
+// //       setName(response.username || '');
+// //       setEmail(response.email || '');
+// //     } else{
+// //       setError('No data returned from the API');
+// //     }
+// //   } catch(err){
+// //     console.log('Error Fetching admin data;', err);
+// //     setError('Failed to load profile data.');
 
-//   } finally{
-//     setLoading(false);
-//   }
-// };
+// //   } finally{
+// //     setLoading(false);
+// //   }
+// // };
 
-//   useEffect(()=>{
+// //   useEffect(()=>{
 
-//     getAdmin();
-//   },[]);
+// //     getAdmin();
+// //   },[]);
 
-//   // useEffect(()=>{
-//   //   const fetchData = async () => {
-//   //     try{
-//   //       const data = await getById(PaymentResponse.adminId);
-//   //       console.log("API Response:", data); 
-//   //       if(data && data.username && data.email){
-//   //       setName(data.username);
-//   //       setEmail(data.email);
-//   //       }else{
-//   //         setError('No data returned from the API.');
+// //   // useEffect(()=>{
+// //   //   const fetchData = async () => {
+// //   //     try{
+// //   //       const data = await getById(PaymentResponse.adminId);
+// //   //       console.log("API Response:", data); 
+// //   //       if(data && data.username && data.email){
+// //   //       setName(data.username);
+// //   //       setEmail(data.email);
+// //   //       }else{
+// //   //         setError('No data returned from the API.');
 
-//   //       }
-//   //     }catch(error){
-//   //       console.error('Error fetching data:', error);
-//   //       setError('Failed to load profile data');
+// //   //       }
+// //   //     }catch(error){
+// //   //       console.error('Error fetching data:', error);
+// //   //       setError('Failed to load profile data');
 
-//   //     }finally {
-//   //       setLoading(false);
-//   //     }
+// //   //     }finally {
+// //   //       setLoading(false);
+// //   //     }
 
-//   //   };
-//   //   fetchData();
-//   // },[]);
+// //   //   };
+// //   //   fetchData();
+// //   // },[]);
 
-//   const handleClickShowPassword = () => {
-//     setValues({
-//         ...values,
-//         showPassword: !values.showPassword,
-//     });
-// };
-//   const handelSaveChanges= async() =>{
-//     setFormError("");
+// //   const handleClickShowPassword = () => {
+// //     setValues({
+// //         ...values,
+// //         showPassword: !values.showPassword,
+// //     });
+// // };
+// //   const handelSaveChanges= async() =>{
+// //     setFormError("");
 
-//     //Validate password fields
-//     if (newPassword!==confirmNewPassword){
-//       setFormError('New password  do not match');
-//       return;
-//     }
-//     if (newPassword.length > 0 && newPassword.length < 6) {
-//       setFormError('Password must be at least 6 characters long');
-//       return;
-//     }
+// //     //Validate password fields
+// //     if (newPassword!==confirmNewPassword){
+// //       setFormError('New password  do not match');
+// //       return;
+// //     }
+// //     if (newPassword.length > 0 && newPassword.length < 6) {
+// //       setFormError('Password must be at least 6 characters long');
+// //       return;
+// //     }
 
-//     setSaving(true);
+// //     setSaving(true);
 
-//     try{
-//       const payload ={
-//         username,
-//         email,
-//         currentPassword,
-//         newPassword: newPassword || null,
-//       };
+// //     try{
+// //       const payload ={
+// //         username,
+// //         email,
+// //         currentPassword,
+// //         newPassword: newPassword || null,
+// //       };
 
-//       // call the backend service to save data
-//       const response = await getById(props.adminId, payload);
-//       if (response && response.success){
-//         alert('Changes saved successfully!');
-//         setCurrentPassword('');
-//         setNewPassword('');
-//         setConfirmNewPassword('');
+// //       // call the backend service to save data
+// //       const response = await getById(props.adminId, payload);
+// //       if (response && response.success){
+// //         alert('Changes saved successfully!');
+// //         setCurrentPassword('');
+// //         setNewPassword('');
+// //         setConfirmNewPassword('');
 
-//       } else{
-//         throw new Error(response.message || 'Failed to save changes');
-//       }
-//     } catch(err){
-//       console.error('error saving changes:',err);
-//       setFormError(err.message || 'An unexpected error occured');
+// //       } else{
+// //         throw new Error(response.message || 'Failed to save changes');
+// //       }
+// //     } catch(err){
+// //       console.error('error saving changes:',err);
+// //       setFormError(err.message || 'An unexpected error occured');
 
-//     } finally{
-//       setSaving(false);
+// //     } finally{
+// //       setSaving(false);
 //     }
 
    
