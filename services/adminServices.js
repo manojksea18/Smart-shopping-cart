@@ -58,6 +58,9 @@ export const login = async (username, password) => {
         password,
       }
     );
+    console.log("+++++++++++++++++++++++++++")
+    console.log(response)
+    console.log("+++++++++++++++++++++++++++")
 
     // Assuming the backend sends back a JWT token upon successful login
     const token = response.data.token;
@@ -76,5 +79,41 @@ export const login = async (username, password) => {
   }
 };
 
+
+
+
+export const updateAdmin = async(adminId,   token )=>{
+
+
+  try{
+    console.log("Updating admin:", adminId);
+
+    const response = await axios.put(
+      adminURL + "update/" + adminId,
+     
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // Include the JWT token for authentication
+        },
+      }
+    );
+
+    console.log("Admin update successfully:", response.data);
+
+
+    return{
+      status: response.status,
+      data: response.data,
+    };
+  } catch(error){
+    console.error("Error updating admin:",  error.response || error.message);
+
+    throw {
+      status : error.response?.status || 500,
+      message: error.response?. data?.message || "Internal Server Error",
+    };
+  }
+
+}
 
 

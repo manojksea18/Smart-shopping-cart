@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {getById} from '../services/adminServices';
+import {getById, updateAdmin} from '../services/adminServices';
 
-const Setting=(props)=> {
+const Setting=()=> {
     // State for name and email
   const [username, setName]= useState('');
   const [email, setEmail]= useState('');
@@ -15,69 +15,33 @@ const Setting=(props)=> {
 
 
 
-  // function to fetch admin data by ID
-
-  const getAdmin=async()=>{
-    try{
-    const response=await getById(props.adminId);
-    console.log("API Response",response);
-
-    if(response){
-      setName(response.username || '');
-      setEmail(response.email || '');
-    } else{
-      setError('No data returned from the API');
+  // Fetch admin data by ID
+  const getAdmin = async (adminId) => {
+    try {
+      const response = await getById(adminId); // Fetch admin data
+      if (response) {
+        setName(response.username || '');
+        setEmail(response.email || '');
+      } else {
+        setError('No data returned from the API');
+      }
+    } catch (err) {
+      console.error('Error Fetching admin data:', err);
+      setError('Failed to load profile data.');
+    } finally {
+      setLoading(false);
     }
-  } catch(err){
-    console.log('Error Fetching admin data;', err);
-    setError('Failed to load profile data.');
+  };
 
-  } finally{
-    setLoading(false);
-  }
-};
+  useEffect(() => {
+    
+  }, []);
 
-  useEffect(()=>{
+  const handelSaveChanges = async () => {
+    setFormError('');
 
-    getAdmin();
-  },[]);
-
-  // useEffect(()=>{
-  //   const fetchData = async () => {
-  //     try{
-  //       const data = await getById(PaymentResponse.adminId);
-  //       console.log("API Response:", data); 
-  //       if(data && data.username && data.email){
-  //       setName(data.username);
-  //       setEmail(data.email);
-  //       }else{
-  //         setError('No data returned from the API.');
-
-  //       }
-  //     }catch(error){
-  //       console.error('Error fetching data:', error);
-  //       setError('Failed to load profile data');
-
-  //     }finally {
-  //       setLoading(false);
-  //     }
-
-  //   };
-  //   fetchData();
-  // },[]);
-
-  const handleClickShowPassword = () => {
-    setValues({
-        ...values,
-        showPassword: !values.showPassword,
-    });
-};
-  const handelSaveChanges= async() =>{
-    setFormError("");
-
-    //Validate password fields
-    if (newPassword!==confirmNewPassword){
-      setFormError('New password  do not match');
+    if (newPassword !== confirmNewPassword) {
+      setFormError('New passwords do not match');
       return;
     }
     if (newPassword.length > 0 && newPassword.length < 6) {
@@ -87,35 +51,140 @@ const Setting=(props)=> {
 
     setSaving(true);
 
-    try{
-      const payload ={
+    try {
+      const payload = {
         username,
         email,
         currentPassword,
         newPassword: newPassword || null,
       };
 
-      // call the backend service to save data
-      const response = await getById(props.adminId, payload);
-      if (response && response.success){
+      // Call the backend service to save data
+      const response = await updateAdmin(props.adminId, payload);
+      if (response && response.success) {
         alert('Changes saved successfully!');
         setCurrentPassword('');
         setNewPassword('');
         setConfirmNewPassword('');
-
-      } else{
+      } else {
         throw new Error(response.message || 'Failed to save changes');
       }
-    } catch(err){
-      console.error('error saving changes:',err);
-      setFormError(err.message || 'An unexpected error occured');
-
-    } finally{
+    } catch (err) {
+      console.error('Error saving changes:', err);
+      setFormError(err.message || 'An unexpected error occurred');
+    } finally {
       setSaving(false);
     }
+  };
+
+
+  // function to fetch admin data by ID
+
+//   const getAdmin = async(adminId)=>{
+//     try{
+//       const payload ={   
+//         username,
+//         email,
+//         currentPassword,
+//         newPassword,
+//     }
+//     const response= await updateAdmin(adminId,payload);
+//     console.log("API Response",response);
+
+//     if(response){
+//       setName(response.username || '');
+//       setEmail(response.email || '');
+//     } else{
+//       setError('No data returned from the API');
+//     }
+//   } catch(err){
+//     console.log('Error Fetching admin data;', err);
+//     setError('Failed to load profile data.');
+
+//   } finally{
+//     setLoading(false);
+//   }
+// };
+
+//   useEffect(()=>{
+
+//     getAdmin();
+//   },[]);
+
+//   // useEffect(()=>{
+//   //   const fetchData = async () => {
+//   //     try{
+//   //       const data = await getById(PaymentResponse.adminId);
+//   //       console.log("API Response:", data); 
+//   //       if(data && data.username && data.email){
+//   //       setName(data.username);
+//   //       setEmail(data.email);
+//   //       }else{
+//   //         setError('No data returned from the API.');
+
+//   //       }
+//   //     }catch(error){
+//   //       console.error('Error fetching data:', error);
+//   //       setError('Failed to load profile data');
+
+//   //     }finally {
+//   //       setLoading(false);
+//   //     }
+
+//   //   };
+//   //   fetchData();
+//   // },[]);
+
+//   const handleClickShowPassword = () => {
+//     setValues({
+//         ...values,
+//         showPassword: !values.showPassword,
+//     });
+// };
+//   const handelSaveChanges= async() =>{
+//     setFormError("");
+
+//     //Validate password fields
+//     if (newPassword!==confirmNewPassword){
+//       setFormError('New password  do not match');
+//       return;
+//     }
+//     if (newPassword.length > 0 && newPassword.length < 6) {
+//       setFormError('Password must be at least 6 characters long');
+//       return;
+//     }
+
+//     setSaving(true);
+
+//     try{
+//       const payload ={
+//         username,
+//         email,
+//         currentPassword,
+//         newPassword: newPassword || null,
+//       };
+
+//       // call the backend service to save data
+//       const response = await getById(props.adminId, payload);
+//       if (response && response.success){
+//         alert('Changes saved successfully!');
+//         setCurrentPassword('');
+//         setNewPassword('');
+//         setConfirmNewPassword('');
+
+//       } else{
+//         throw new Error(response.message || 'Failed to save changes');
+//       }
+//     } catch(err){
+//       console.error('error saving changes:',err);
+//       setFormError(err.message || 'An unexpected error occured');
+
+//     } finally{
+//       setSaving(false);
+//     }
 
    
-  };
+//   };
   if (loading) return <div className='text-2xl font-bold'>Loading...</div>;
   if (error) return <div>{error}</div>;
 

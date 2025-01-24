@@ -33,7 +33,7 @@ const LoginPage=()=>{
             localStorage.setItem("token", response.data);
             setIsAuthenticated(true); // Update authentication state
             alert("Login successful!");
-            navigate('/dash');;
+            navigate('/dash');
         } 
         else{
             setError("Invalid username or password");

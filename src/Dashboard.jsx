@@ -1,12 +1,17 @@
 // import { plugins } from 'chart.js';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Title, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Line } from "react-chartjs-2";
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement,ArcElement, Title, Tooltip, Legend);
 
 import { Pie } from "react-chartjs-2";
+import { redirect } from 'react-router-dom';
 
 const Dashboard=()=> {
+    // useEffect(()=>{
+    //     if localStorage ma token xa vani Dashboard mai user lai rakhni
+    //     else redirect to login
+    // })
 
     const lineChartData={
         labels: ["Jan" ,"Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],

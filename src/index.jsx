@@ -31,7 +31,7 @@ const Index = () => {
                 <Route path='/dash' element={<Dashboard/>}/>
                 <Route path='/cart-management' element={<Cart />}/>
                 <Route path='/users-management' element={<Users />}/>
-                <Route path='/settings' element={<Setting />}/> 
+                <Route path='/settings' element={<Setting  />}/> 
 
             </Routes>
                 </div>
