@@ -102,10 +102,7 @@ export const getUserIdByToken = async(authToken)=>{
 
 
 
-
-export const updateAdmin = async(adminId,   token )=>{
-
-
+export const updateAdmin = async(adminId,   authToken )=>{
   try{
     console.log("Updating admin:", adminId);
 
@@ -114,7 +111,7 @@ export const updateAdmin = async(adminId,   token )=>{
      
       {
         headers: {
-          Authorization: `Bearer ${token}`, // Include the JWT token for authentication
+          Authorization: `Bearer ${authToken}`, // Include the JWT token for authentication
         },
       }
     );
