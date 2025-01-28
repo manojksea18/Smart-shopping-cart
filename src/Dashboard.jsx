@@ -1,24 +1,69 @@
 // import { plugins } from 'chart.js';
-import React, { useEffect } from 'react'
-import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Title, ArcElement, Tooltip, Legend } from 'chart.js';
+
+import React, { useEffect, useState } from 'react';
+import { db, collection, getDocs } from '../src/firebase'; // Import Firebase setupimport { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Title, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Line } from "react-chartjs-2";
-ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement,ArcElement, Title, Tooltip, Legend);
+import { Chart as ChartJS,LineElement, ArcElement, PointElement, Tooltip, Legend, CategoryScale, LinearScale } from 'chart.js';
+
+ChartJS.register(
+ LineElement,
+  ArcElement, 
+  PointElement, 
+  Tooltip, 
+  Legend, 
+  CategoryScale, 
+  LinearScale
+);
+
 
 import { Pie } from "react-chartjs-2";
-import { redirect } from 'react-router-dom';
 
 const Dashboard=()=> {
+
+    const[totalSales, setTotalSales] = useState(0);
+    const [activeCarts, setActiveCarts]= useState(0);
+    const[transactions, setTransactions]= useState(0);
+    const [monthlySales, setMonthlySales] = useState([]);
+    const [paymentMethods, setPaymentMethods] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     // useEffect(()=>{
     //     if localStorage ma token xa vani Dashboard mai user lai rakhni
     //     else redirect to login
     // })
+
+    useEffect(()=>{
+         // Fetch data from Firebase
+         const fetchData = async()=>{
+            try{
+                const salesData = await getDocs(collection(db,'sales'));
+                const cartData = await getDocs(collection(db, "activeCarts"));
+                const transactionsData= await getDocs(collection(db, "transactions"));
+        
+                // Assuming Firebase documents have structured data
+                const sales = salesData.docs.map((doc)=> doc.data());
+                const carts = cartData.docs.map((doc)=> doc.data());
+                const transactions =transactionsData.docs.map((doc)=>doc.data());
+
+                setTotalSales(sales.reduce((sum,item)=>sum+item.amount,0))
+                setActiveCarts(carts.length);
+                setTransactions(transactions.length);
+                setMonthlySales(sales.map((item)=>item.monthlySales));
+                setPaymentMethods(sales.map((item)=> item.paymentMethods));
+            }catch(error){
+                console.error("Error fetching data from Firebase:", error);
+            }
+
+            };
+            fetchData();
+    }, []);
 
     const lineChartData={
         labels: ["Jan" ,"Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         datasets:[
             {
                 label:"Monthly Sales (NPR)",
-                data : [15000,400000, 40000, 30000, 45000,50000, 600000, 55000, 70000,75000, 65000, 80000],
+                data: Array.isArray(monthlySales) && monthlySales.length ? monthlySales : [15000, 40000, 40000, 30000, 45000, 50000, 60000, 55000, 70000, 75000, 65000, 80000],
                 borderColor: "rgba(54,162,235, 1)",
                 backgroundColor: "rgba(54,162, 235, 0.2)",
                 borderWidth:2,
@@ -84,19 +129,19 @@ const Dashboard=()=> {
         <div className='grid grid-cols-3 gap-4' >
             <div className='p-4 bg-white rounded shadow'>
             <h3 className='text-lg font-bold'> Total Sales</h3>
-            <p className='text-2xl'>NPR 425,000</p>
+            <p className='text-2xl'>NPR {totalSales}</p>
             <p className='text-sm text-green-600'>↑ 12.5% from last month</p>
             </div>
 
             <div className='p-4 bg-white rounded shadow'>
             <h3 className='text-lg font-bold'>  Active Carts</h3>
-            <p className='text-2xl'> 42</p>
+            <p className='text-2xl'> {activeCarts}</p>
             <p className='text-sm text-red-600'>↓ 5 from last week</p>
             </div>
 
             <div className='p-4 bg-white rounded shadow'>
             <h3 className='text-lg font-bold'> Completed Transactions</h3>
-            <p className='text-2xl'>378</p>
+            <p className='text-2xl'>{transactions}</p>
             <p className='text-sm text-green-600'>↑ 8.3% from last month</p>
             </div>
            

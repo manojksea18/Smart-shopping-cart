@@ -1,7 +1,27 @@
 // import { defaults } from 'chart.js'
-import React from 'react'
-
+import React, { useEffect, useState } from 'react';
+import { db, collection, getDocs } from '../src/firebase'; // Import Firebase setup
 const Users =() => {
+
+    const[users, setUsers] = useState([]);
+
+
+    useEffect(()=>{
+        const fetchUser = async()=>{
+            try{
+                const querySnapshot = getDocs(collection(db,"users"));// Fetch from "users" collection
+                const usersData = (await querySnapshot).docs.map((doc)=>({
+                    id: doc.id,
+                    ...doc.data(),
+                }));
+                setUsers(usersData);
+            } catch(error){
+                console.error("Error fetching users:", error);
+            }
+
+        };
+        fetchUser();
+    },[]);
   return (
     
         <div className=' h-screen bg-gray-100'>
@@ -30,16 +50,96 @@ const Users =() => {
                 </thead>
 
             <tbody>
+                {users.length > 0?(
+                    users.map((user)=>(
+
+                  
+                
                 <tr>
-                <td className='p-4'> Manoj Khati</td>
-                <td className="p-4">manojkhati321@gmail.com</td>
-                <td className="p-4">9867978561</td>
-                <td className="p-4 ">15 jan 024</td>
+                <td className='p-4'> {user.name}</td>
+                <td className="p-4">{user.email}</td>
+                <td className="p-4">{user.phone}</td>
+                <td className="p-4 ">{user.registrationDate}</td>
                 <td className='p-4'>
                     <button className='text-blue-600'>Edit</button>
                 </td>               
                  </tr>
-                 <tr>
+                   ))
+                ) : (
+                   <tr>
+                <td colSpan="5" className="p-4 text-center">
+                  No users found
+                </td>
+              </tr>
+              )}
+              </tbody>
+               <tbody>
+                {users.length > 0?(
+                    users.map((user)=>(
+
+                <tr>
+                <td className='p-4'> {user.name}</td>
+                <td className="p-4">{user.email}</td>
+                <td className="p-4">{user.phone}</td>
+                <td className="p-4 ">{user.registrationDate}</td>
+                <td className='p-4'>
+                    <button className='text-blue-600'>Edit</button>
+                </td>               
+                 </tr>
+                   ))
+                ) : (
+                   <tr>
+                <td colSpan="5" className="p-4 text-center">
+                  No users found
+                </td>
+              </tr>
+              )}
+            </tbody>   
+            <tbody>
+                {users.length > 0?(
+                    users.map((user)=>(
+
+                <tr>
+                <td className='p-4'> {user.name}</td>
+                <td className="p-4">{user.email}</td>
+                <td className="p-4">{user.phone}</td>
+                <td className="p-4 ">{user.registrationDate}</td>
+                <td className='p-4'>
+                    <button className='text-blue-600'>Edit</button>
+                </td>               
+                 </tr>
+                   ))
+                ) : (
+                   <tr>
+                <td colSpan="5" className="p-4 text-center">
+                  No users found
+                </td>
+              </tr>
+              )}
+            </tbody>  
+            <tbody>
+                {users.length > 0?(
+                    users.map((user)=>(
+
+                <tr>
+                <td className='p-4'> {user.name}</td>
+                <td className="p-4">{user.email}</td>
+                <td className="p-4">{user.phone}</td>
+                <td className="p-4 ">{user.registrationDate}</td>
+                <td className='p-4'>
+                    <button className='text-blue-600'>Edit</button>
+                </td>               
+                 </tr>
+                   ))
+                ) : (
+                   <tr>
+                <td colSpan="5" className="p-4 text-center">
+                  No users found
+                </td>
+              </tr>
+              )}
+            </tbody>    
+                 {/* <tr>
                 <td className='p-4'> Aanamika Rai</td>
                 <td className="p-4">aanamikarai21@gmail.com</td>
                 <td className="p-4">9867978500</td>
@@ -66,7 +166,7 @@ const Users =() => {
                     <button className='text-blue-600'>Edit</button>
                 </td>               
                  </tr>
-            </tbody>
+            */}
             </table>
         </div>
 
