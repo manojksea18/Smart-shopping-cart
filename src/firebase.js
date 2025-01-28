@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore ,collection, getDocs} from "firebase/firestore";
 
 
 
@@ -14,7 +14,7 @@ const firebaseConfig = {
     messagingSenderId: "52215147179",
     appId: "1:52215147179:web:cb4feff245702bbd56a5ee",
     measurementId: "G-B7J8FNG28Y"
-  };
+  };  
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
@@ -23,4 +23,6 @@ const firebaseConfig = {
 // Export services
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+export {  collection, getDocs };
+
 export default app;

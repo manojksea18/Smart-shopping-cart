@@ -1,6 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import { db, collection, getDocs } from '../src/firebase'; // Import Firebase setup
 
-const  Cart=()=> {
+const Cart = () => {
+    const [users, setUsers] = useState([]);
+  
+    // Fetch cart details from Firestore
+    useEffect(() => {
+      const fetchUsers = async () => {
+        try {
+          const usersCollection = collection(db, "users"); // Reference to Firestore collection
+          const userSnapshot = await getDocs(usersCollection); // Fetch documents
+          const userList = userSnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }));
+          setUsers(userList);
+        } catch (error) {
+          console.error("Error fetching users:", error);
+        }
+      };
+  
+      fetchUsers();
+    }, []);
+
+
   return (
     <div className=' h-screen bg-gray-100'>
         <h1 className='text-2xl font-bold mb-4 h-20 bg-white p-4'>Cart Management</h1>
@@ -31,16 +54,67 @@ const  Cart=()=> {
             
         </thead>
         <tbody>
-            <tr>
-                <td className='p-4'> Manoj Khati</td>
-                <td className="p-4">9841234567</td>
-                <td className="p-4">Active Cart: 4001 (5 items | NPR 4,500)</td>
+            {users.map(user =>(
+            <tr key={user.id}>
+                <td className='p-4'>{user.name || "N/A"}</td>
+                <td className="p-4">{user.phone || "N/A"}</td>
+                <td className="p-4">{user.cart ? `Active Cart:${user.cart.cartId} ($(user.cart.items}items | NPR ${user.cart.total})`:"No active cart"}</td>
                 <td className="p-4 text-green-600">eSewa</td>
-                <td className='p-4'>
+                <td className={`p-4 ${user.paymentMethod === "eSewa"? "text-green-600" : "text-yellow-600" }`} >
+                                      {user.paymentMethod || "N/A"}
+
                     <button className='text-blue-600'>View Details</button>
                 </td>
             </tr>
-            <tr>
+            ))}
+          </tbody>
+
+          <tbody>
+            {users.map(user =>(
+            <tr key={user.id}>
+                <td className='p-4'>{user.name || "N/A"}</td>
+                <td className="p-4">{user.phone || "N/A"}</td>
+                <td className="p-4">{user.cart ? `Active Cart:${user.cart.cartId} ($(user.cart.items}items | NPR ${user.cart.total})`:"No active cart"}</td>
+                <td className="p-4 text-green-600">eSewa</td>
+                <td className={`p-4 ${user.paymentMethod === "eSewa"? "text-green-600" : "text-yellow-600" }`} >
+                                      {user.paymentMethod || "N/A"}
+
+                    <button className='text-blue-600'>View Details</button>
+                </td>
+            </tr>
+            ))}
+          </tbody>
+          <tbody>
+            {users.map(user =>(
+            <tr key={user.id}>
+                <td className='p-4'>{user.name || "N/A"}</td>
+                <td className="p-4">{user.phone || "N/A"}</td>
+                <td className="p-4">{user.cart ? `Active Cart:${user.cart.cartId} ($(user.cart.items}items | NPR ${user.cart.total})`:"No active cart"}</td>
+                <td className="p-4 text-green-600">eSewa</td>
+                <td className={`p-4 ${user.paymentMethod === "eSewa"? "text-green-600" : "text-yellow-600" }`} >
+                                      {user.paymentMethod || "N/A"}
+
+                    <button className='text-blue-600'>View Details</button>
+                </td>
+            </tr>
+            ))}
+          </tbody>
+          <tbody>
+            {users.map(user =>(
+            <tr key={user.id}>
+                <td className='p-4'>{user.name || "N/A"}</td>
+                <td className="p-4">{user.phone || "N/A"}</td>
+                <td className="p-4">{user.cart ? `Active Cart:${user.cart.cartId} ($(user.cart.items}items | NPR ${user.cart.total})`:"No active cart"}</td>
+                <td className="p-4 text-green-600">eSewa</td>
+                <td className={`p-4 ${user.paymentMethod === "eSewa"? "text-green-600" : "text-yellow-600" }`} >
+                                      {user.paymentMethod || "N/A"}
+
+                    <button className='text-blue-600'>View Details</button>
+                </td>
+            </tr>
+            ))}
+          </tbody>
+            {/* <tr>
                 <td className='p-4'> Gagan Pradhan</td>
                 <td className="p-4">9841234777</td>
                 <td className="p-4">Active Cart: 4002 (7 items | NPR 8,500)</td>
@@ -49,6 +123,7 @@ const  Cart=()=> {
                     <button className='text-blue-600'>View Details</button>
                 </td>
             </tr>
+
             <tr>
                 <td className='p-4'> Anamika Rai</td>
                 <td className="p-4">9841234888</td>
@@ -67,7 +142,7 @@ const  Cart=()=> {
                     <button className='text-blue-600'>View Details</button>
                 </td>
             </tr>
-        </tbody>
+             */}
     </table>
       </div>
     </div>
