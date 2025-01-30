@@ -6,6 +6,8 @@ const Cart = () => {
     const [activeCarts, setActiveCarts] = useState([]);
     const [inactiveCarts, setInactiveCarts] = useState([]);
     const [availableCarts, setAvailableCarts] = useState([]);
+    const [searchQuery, setSearchQuery] = useState(""); // Store search input
+
   
     // Fetch cart details from Firestore
     useEffect(() => {
@@ -35,6 +37,14 @@ const Cart = () => {
       fetchUsers();
     }, []);
 
+    const filteredUsers = users.filter(
+        (user) =>
+          user.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          user.phone?.includes(searchQuery) ||
+          (user.cart?.cartId && user.cart.cartId.toString().includes(searchQuery))
+      );
+    
+
 
   return (
     <div className=' h-screen bg-gray-100'>
@@ -42,13 +52,17 @@ const Cart = () => {
         <input
         type='text'
         placeholder='Search users ,cart ID...'
+        value={searchQuery}
+        onChange={(e)=> setSearchQuery(e.target.v)}
         className='w-full p-2 mb-4 border rounded'/>
         <div className='h-10 bg-gray-200'>
+            <table>
       <tr className='mt-10 h-10'>
                 <th className='p-3'> <button onClick={() => setUsers(activeCarts)}>Show Active Carts</button></th>
                 <th className='p-3'> <button onClick={() => setUsers(inactiveCarts)}>Show Inactive Carts</button></th>
                 <th className='p-3'> <button onClick={() => setUsers(availableCarts)}>Show Available Carts</button></th>
             </tr>
+            </table>
             </div>
       <div className='bg-white rounded shadow overflow-hidden mt-10'>
      <table className='table-auto w-full text-left'>
