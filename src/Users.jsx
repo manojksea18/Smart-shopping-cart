@@ -45,10 +45,14 @@ const Users =() => {
         className='w-full mt-3 p-2 mb-4 border rounded'/>
         <div className='h-10 bg-gray-200'>
         <tr className='mt-10'>
-                <th className='p-3'> Active Cards:{activeCarts.length}</th>
-                <th className='p-3'> Inactive Cards:{inactiveCarts.length}</th>
-                <th className='p-3'> Availabe Cards:{availableCarts.length}</th>
+                <th className='p-3'> <button onClick={() => setUsers(activeCarts)}>Show Active Carts</button></th>
+                <th className='p-3'> <button onClick={() => setUsers(inactiveCarts)}>Show Inactive Carts</button></th>
+                <th className='p-3'> <button onClick={() => setUsers(availableCarts)}>Show Available Carts</button></th>
             </tr>
+            
+     
+            
+
         </div>
         <div className=' bg-white rounded shadow overflow-hidden mt-10'>
             <table className='table-auto w-full text-left'>
