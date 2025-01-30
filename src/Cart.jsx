@@ -54,12 +54,42 @@ const Cart = () => {
             
         </thead>
         <tbody>
+     {users.map((user) => (
+    <tr key={user.id} className="border-b">
+      <td className="p-4">{user.name || "N/A"}</td>
+      <td className="p-4">{user.phone || "N/A"}</td>
+      <td className="p-4">
+        {user.cart ? (
+          <>
+            <span className="font-semibold">Active Cart: {user.cart.cartId}</span>
+            <br />
+            <span>({user.cart.items} items | NPR {user.cart.total})</span>
+          </>
+        ) : (
+          "No active cart"
+        )}
+      </td>
+      <td
+        className={`p-4 ${
+          user.paymentMethod === "eSewa" ? "text-green-600" : "text-yellow-600"
+        }`}
+      >
+        {user.paymentMethod || "N/A"}
+      </td>
+      <td className="p-4">
+        <button className="text-blue-600 hover:underline">View Details</button>
+      </td>
+    </tr>
+  ))}
+</tbody>
+
+
+          {/* <tbody>
             {users.map(user =>(
             <tr key={user.id}>
                 <td className='p-4'>{user.name || "N/A"}</td>
                 <td className="p-4">{user.phone || "N/A"}</td>
                 <td className="p-4">{user.cart ? `Active Cart:${user.cart.cartId} ($(user.cart.items}items | NPR ${user.cart.total})`:"No active cart"}</td>
-                <td className="p-4 text-green-600">eSewa</td>
                 <td className={`p-4 ${user.paymentMethod === "eSewa"? "text-green-600" : "text-yellow-600" }`} >
                                       {user.paymentMethod || "N/A"}
 
@@ -68,14 +98,12 @@ const Cart = () => {
             </tr>
             ))}
           </tbody>
-
           <tbody>
             {users.map(user =>(
             <tr key={user.id}>
                 <td className='p-4'>{user.name || "N/A"}</td>
                 <td className="p-4">{user.phone || "N/A"}</td>
                 <td className="p-4">{user.cart ? `Active Cart:${user.cart.cartId} ($(user.cart.items}items | NPR ${user.cart.total})`:"No active cart"}</td>
-                <td className="p-4 text-green-600">eSewa</td>
                 <td className={`p-4 ${user.paymentMethod === "eSewa"? "text-green-600" : "text-yellow-600" }`} >
                                       {user.paymentMethod || "N/A"}
 
@@ -90,7 +118,6 @@ const Cart = () => {
                 <td className='p-4'>{user.name || "N/A"}</td>
                 <td className="p-4">{user.phone || "N/A"}</td>
                 <td className="p-4">{user.cart ? `Active Cart:${user.cart.cartId} ($(user.cart.items}items | NPR ${user.cart.total})`:"No active cart"}</td>
-                <td className="p-4 text-green-600">eSewa</td>
                 <td className={`p-4 ${user.paymentMethod === "eSewa"? "text-green-600" : "text-yellow-600" }`} >
                                       {user.paymentMethod || "N/A"}
 
@@ -98,22 +125,7 @@ const Cart = () => {
                 </td>
             </tr>
             ))}
-          </tbody>
-          <tbody>
-            {users.map(user =>(
-            <tr key={user.id}>
-                <td className='p-4'>{user.name || "N/A"}</td>
-                <td className="p-4">{user.phone || "N/A"}</td>
-                <td className="p-4">{user.cart ? `Active Cart:${user.cart.cartId} ($(user.cart.items}items | NPR ${user.cart.total})`:"No active cart"}</td>
-                <td className="p-4 text-green-600">eSewa</td>
-                <td className={`p-4 ${user.paymentMethod === "eSewa"? "text-green-600" : "text-yellow-600" }`} >
-                                      {user.paymentMethod || "N/A"}
-
-                    <button className='text-blue-600'>View Details</button>
-                </td>
-            </tr>
-            ))}
-          </tbody>
+          </tbody> */}
             {/* <tr>
                 <td className='p-4'> Gagan Pradhan</td>
                 <td className="p-4">9841234777</td>

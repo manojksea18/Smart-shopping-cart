@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Sidebar =()=> {
   return (
-    <div className='  mt-5 w-64 max-h-full border-r shadow-md bg-white '>
+    <div className='  mt-5 w-64 h-full border-r  bg-white '>
       <div className='p-5 text-lg font-bold '>
         Admin Dashboard
       </div>
