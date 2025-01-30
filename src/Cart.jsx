@@ -3,6 +3,9 @@ import { db, collection, getDocs } from '../src/firebase'; // Import Firebase se
 
 const Cart = () => {
     const [users, setUsers] = useState([]);
+    const [activeCarts, setActiveCarts] = useState([]);
+    const [inactiveCarts, setInactiveCarts] = useState([]);
+    const [availableCarts, setAvailableCarts] = useState([]);
   
     // Fetch cart details from Firestore
     useEffect(() => {
@@ -15,6 +18,15 @@ const Cart = () => {
             ...doc.data()
           }));
           setUsers(userList);
+
+
+          const active = userList.filter(user => user.cart && user.cart.items > 0);
+          const inactive = userList.filter(user => user.cart && user.cart.items === 0);
+          const available = userList.filter(user => !user.cart);
+          setActiveCarts(active);
+          setInactiveCarts(inactive);
+          setAvailableCarts(available);
+
         } catch (error) {
           console.error("Error fetching users:", error);
         }
@@ -33,18 +45,18 @@ const Cart = () => {
         className='w-full p-2 mb-4 border rounded'/>
         <div className='h-10 bg-gray-200'>
       <tr className='mt-10 h-10'>
-                <th className='p-3'> Active Cards</th>
-                <th className='p-3'> Inactive Cards</th>
-                <th className='p-3'> Availabe Cards</th>
+                <th className='p-3'> Active Cards:{activeCarts.length}</th>
+                <th className='p-3'> Inactive Cards:{inactiveCarts.length}</th>
+                <th className='p-3'> Availabe Cards:{availableCarts.length}</th>
             </tr>
             </div>
       <div className='bg-white rounded shadow overflow-hidden mt-10'>
      <table className='table-auto w-full text-left'>
-        <thead className='bg-gray-100 h-10'>
+        <thead className='bg-gray-100 h-10 shadow-md'>
             
     
             <tr className=''>
-                <th className='p-4'>User Name </th>
+                <th className='p-4 '>User Name </th>
                 <th className='p-4'>Phone Number </th>
                 <th className='p-4'>Cart Sessions </th>
                 <th className='p-4'>Payment Methods </th>
@@ -55,10 +67,10 @@ const Cart = () => {
         </thead>
         <tbody>
      {users.map((user) => (
-    <tr key={user.id} className="border-b">
-      <td className="p-4">{user.name || "N/A"}</td>
-      <td className="p-4">{user.phone || "N/A"}</td>
-      <td className="p-4">
+    <tr key={user.id} className="border-black shadow-md bg-purple-100">
+      <td className="p-4 mt-2">{user.name || "N/A"}</td>
+      <td className="p-4 mt-2">{user.phone || "N/A"}</td>
+      <td className="p-4 mt-2">
         {user.cart ? (
           <>
             <span className="font-semibold">Active Cart: {user.cart.cartId}</span>
@@ -70,7 +82,7 @@ const Cart = () => {
         )}
       </td>
       <td
-        className={`p-4 ${
+        className={`p-4 mt-2 ${
           user.paymentMethod === "eSewa" ? "text-green-600" : "text-yellow-600"
         }`}
       >

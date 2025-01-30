@@ -4,6 +4,10 @@ import { db, collection, getDocs } from '../src/firebase'; // Import Firebase se
 const Users =() => {
 
     const[users, setUsers] = useState([]);
+    const [activeCarts, setActiveCarts] = useState([]);
+    const [inactiveCarts, setInactiveCarts] = useState([]);
+    const [availableCarts, setAvailableCarts] = useState([]);
+      
 
 
     useEffect(()=>{
@@ -15,6 +19,15 @@ const Users =() => {
                     ...doc.data(),
                 }));
                 setUsers(usersData);
+
+                const active = usersData.filter(user => user.cart && user.cart.items > 0);
+                const inactive = usersData.filter(user => user.cart && user.cart.items === 0);
+                const available = usersData.filter(user => !user.cart);
+                setActiveCarts(active);
+                setInactiveCarts(inactive);
+                setAvailableCarts(available);
+
+
             } catch(error){
                 console.error("Error fetching users:", error);
             }
@@ -32,9 +45,9 @@ const Users =() => {
         className='w-full mt-3 p-2 mb-4 border rounded'/>
         <div className='h-10 bg-gray-200'>
         <tr className='mt-10'>
-                <th className='p-3'> Active Cards</th>
-                <th className='p-3'> Inactive Cards</th>
-                <th className='p-3'> Availabe Cards</th>
+                <th className='p-3'> Active Cards:{activeCarts.length}</th>
+                <th className='p-3'> Inactive Cards:{inactiveCarts.length}</th>
+                <th className='p-3'> Availabe Cards:{availableCarts.length}</th>
             </tr>
         </div>
         <div className=' bg-white rounded shadow overflow-hidden mt-10'>
@@ -55,7 +68,7 @@ const Users =() => {
 
                   
                 
-                <tr>
+                <tr className='bg-purple-100'>
                 <td className='p-4'> {user.name}</td>
                 <td className="p-4">{user.email}</td>
                 <td className="p-4">{user.phone}</td>
