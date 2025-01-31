@@ -4,6 +4,8 @@ import { db, collection, getDocs } from '../src/firebase'; // Import Firebase se
 const Users =() => {
 
     const[users, setUsers] = useState([]);
+    const [filteredUsers, setFilteredUsers] = useState([]); // For search filtering
+    const [searchQuery, setSearchQuery] = useState(""); // Store search input
     const [activeCarts, setActiveCarts] = useState([]);
     const [inactiveCarts, setInactiveCarts] = useState([]);
     const [availableCarts, setAvailableCarts] = useState([]);
@@ -23,6 +25,7 @@ const Users =() => {
                 const active = usersData.filter(user => user.cart && user.cart.items > 0);
                 const inactive = usersData.filter(user => user.cart && user.cart.items === 0);
                 const available = usersData.filter(user => !user.cart);
+                setFilteredUsers(usersData);
                 setActiveCarts(active);
                 setInactiveCarts(inactive);
                 setAvailableCarts(available);
@@ -35,14 +38,32 @@ const Users =() => {
         };
         fetchUser();
     },[]);
+     useEffect(()=>{
+          setFilteredUsers(
+            users.filter(
+              (user)=>
+                user.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              user.phone?.includes(searchQuery)
+    
+            )
+          );
+        }, [searchQuery,users]);
   return (
     
         <div className=' h-screen bg-gray-100'>
-            <h1 className=' font-bold text-lg'>Users Management</h1>
-            <input
+            <h1 className=' text-2xl font-bold mb-4 h-20 bg-white p-4'>Users Management</h1>
+
+            {/* Search Bar */}
+        <div>
+        <input
         type='text'
-        placeholder='Search users ,cart ID...'
-        className='w-full mt-3 p-2 mb-4 border rounded'/>
+        placeholder='🔍 Search users, cart ID...'
+        value={searchQuery}
+        onChange={(e)=> setSearchQuery(e.target.value)}
+        className='w-full p-2 mb-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-400'/>
+        </div>
+
+
         <div className='h-10 bg-gray-200'>
         <tr className='mt-10'>
                 <th className='p-3'> <button onClick={() => setUsers(activeCarts)}>Show Active Carts</button></th>
@@ -67,10 +88,9 @@ const Users =() => {
                 </thead>
 
             <tbody>
-                {users.length > 0?(
-                    users.map((user)=>(
+                {filteredUsers.length > 0?(
+                    filteredUsers.map((user)=>(
 
-                  
                 
                 <tr className='bg-purple-100'>
                 <td className='p-4'> {user.name}</td>
