@@ -223,7 +223,8 @@ const Cart = () => {
       
        {/* Modal with Animation */}
       {showModal && selectedUser && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm animate-fade-in"
+        <div className="fixed inset-1 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm animate-fade-in hover:scale-105 transition-transform duration-300
+ "
         onClick={()=>setShowModal(false)}> {/*click out side to close */}
           
           <div className="bg-white p-6 rounded shadow-lg w-96 relative animate-slide-up">
@@ -236,12 +237,12 @@ const Cart = () => {
             </button>
 
             <h2 className="text-xl font-bold mb-4 text-center text-gray-700">User Details</h2>
-            <p className='font-sans mb-2 '><strong>Name : </strong>{selectedUser.name|| "N/A"}</p>
-            <p className='font-sans mb-2  '><strong>Phone : </strong>{selectedUser.phone|| "N/A"}</p>
-            <p className='font-sans mb-2 '><strong>Email : </strong>{selectedUser.email|| "N/A"}</p>
-            <p className='font-sans mb-2 '><strong>Address : </strong>{selectedUser.address|| "N/A"}</p>
+            <p className='font-sans mb-2  '><strong>Name: </strong>{selectedUser.name|| "N/A"}</p>
+            <p className='font-sans mb-2  '><strong> Phone: </strong>{selectedUser.phone|| "N/A"}</p>
+            <p className='font-sans mb-2 '><strong>Email: </strong>{selectedUser.email|| "N/A"}</p>
+            <p className='font-sans mb-2 '><strong> Address: </strong>{selectedUser.address|| "N/A"}</p>
             <p className='font-sans mb-2 '>
-              <strong>Cart:</strong>{ " " }
+              <strong> Cart Details:</strong>{ " " }
               {selectedUser.cart
               ?`Cart ID :${selectedUser.cart.cartId} (${selectedUser.cart.items} items | NPR ${selectedUser.Cart.total})`
             :"No active cart"
