@@ -223,14 +223,14 @@ const Cart = () => {
       
        {/* Modal with Animation */}
       {showModal && selectedUser && (
-        <div className="fixed inset-1 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm animate-fade-in hover:scale-105 transition-transform duration-300
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm animate-fade-in hover:scale-105 transition-transform duration-300
  "
         onClick={()=>setShowModal(false)}> {/*click out side to close */}
           
           <div className="bg-white p-6 rounded shadow-lg w-96 relative animate-slide-up">
 
           <button
-              className="absolute top-3 right-3 text-gray-500 hover:text-gray-800"
+              className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 transition-all duration-300 ease-in-out transform hover:scale-100 active:scale-90"
               onClick={() => setShowModal(false)}
             >
               ✖
