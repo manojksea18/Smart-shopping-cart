@@ -64,12 +64,14 @@ const Users =() => {
         </div>
 
 
-        <div className='h-10 bg-gray-200'>
-        <tr className='mt-10'>
-                <th className='p-3'> <button onClick={() => setUsers(activeCarts)}>Show Active Carts</button></th>
-                <th className='p-3'> <button onClick={() => setUsers(inactiveCarts)}>Show Inactive Carts</button></th>
-                <th className='p-3'> <button onClick={() => setUsers(availableCarts)}>Show Available Carts</button></th>
+        <div className=' bg-gray-200'>
+        <table>
+            <tr className='mt-10  p-3 '>
+                <th > <button className='p-3 text-base font-medium rounded-lg transition-all duration-300  text-gray-700 hover:bg-purple-300 hover:text-black hover:shadow-md transform hover:scale-110' onClick={() => setUsers(activeCarts)}>Show Active Carts</button></th>
+                <th > <button className='p-3 ml-5 text-base font-medium rounded-lg transition-all duration-300  text-gray-700 hover:bg-purple-300 hover:text-black hover:shadow-md transform hover:scale-110' onClick={() => setUsers(inactiveCarts)}>Show Inactive Carts</button></th>
+                <th > <button className='p-3 ml-5 text-base font-medium rounded-lg transition-all duration-300  text-gray-700 hover:bg-purple-300 hover:text-black hover:shadow-md transform hover:scale-110' onClick={() => setUsers(availableCarts)}>Show Available Carts</button></th>
             </tr>
+            </table>
             
      
             

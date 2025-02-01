@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { FiSearch } from "react-icons/fi"; // Import icons
+
 import { db, collection, getDocs } from '../src/firebase'; // Import Firebase setup
 
 const Cart = () => {
@@ -61,28 +63,29 @@ const Cart = () => {
     <div className=' h-screen bg-gray-100'>
       {/* Page Header */}
 
-        <h1 className='text-2xl font-bold mb-4 h-20 bg-white p-4'> 🛒 Cart Management
+        <h1 className='text-2xl font-bold mb-4 h-20 bg-white p-4'>  Cart Management
         </h1>
 
       {/* Search Bar */}
         <div>
         <input
         type='text'
-        placeholder='🔍 Search users, cart ID...'
+        placeholder='Search users, cart ID...'
         value={searchQuery}
         onChange={(e)=> setSearchQuery(e.target.value)}
+        
         className='w-full p-2 mb-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-400'/>
         </div>
 
 
       {/* Filter Buttons */}
 
-        <div className='h-10 bg-gray-200 '>
+        <div className=' bg-gray-200 '>
             <table>
-            <tr className='mt-10 h-10 '>
-                <th className='p-3'> <button className='   rounded-lg hover:bg-blue-300 transition' onClick={() => setUsers(activeCarts)}>Show Active Carts</button></th>
-                <th className='p-3'> <button className='   rounded-lg hover:bg-blue-300 transition' onClick={() => setUsers(inactiveCarts)}>Show Inactive Carts</button></th>
-                <th className='p-3'> <button className='   rounded-lg hover:bg-blue-300 transition' onClick={() => setUsers(availableCarts)}>Show Available Carts</button></th>
+            <tr className='mt-10  p-3 '>
+                <th > <button className='p-3 text-base font-medium rounded-lg transition-all duration-300  text-gray-700 hover:bg-purple-300 hover:text-black hover:shadow-md transform hover:scale-110' onClick={() => setUsers(activeCarts)}>Show Active Carts</button></th>
+                <th > <button className='p-3 ml-5 text-base font-medium rounded-lg transition-all duration-300  text-gray-700 hover:bg-purple-300 hover:text-black hover:shadow-md transform hover:scale-110' onClick={() => setUsers(inactiveCarts)}>Show Inactive Carts</button></th>
+                <th > <button className='p-3 ml-5 text-base font-medium rounded-lg transition-all duration-300  text-gray-700 hover:bg-purple-300 hover:text-black hover:shadow-md transform hover:scale-110' onClick={() => setUsers(availableCarts)}>Show Available Carts</button></th>
             </tr>
             </table>
             </div>
@@ -237,11 +240,11 @@ const Cart = () => {
             </button>
 
             <h2 className="text-xl font-bold mb-4 text-center text-gray-700">User Details</h2>
-            <p className='font-sans mb-2  '><strong>Name: </strong>{selectedUser.name|| "N/A"}</p>
-            <p className='font-sans mb-2  '><strong> Phone: </strong>{selectedUser.phone|| "N/A"}</p>
-            <p className='font-sans mb-2 '><strong>Email: </strong>{selectedUser.email|| "N/A"}</p>
-            <p className='font-sans mb-2 '><strong> Address: </strong>{selectedUser.address|| "N/A"}</p>
-            <p className='font-sans mb-2 '>
+            <p className='text-base font-medium mb-2  '><strong>Name: </strong>{selectedUser.name|| "N/A"}</p>
+            <p className='text-base font-medium mb-2  '><strong> Phone: </strong>{selectedUser.phone|| "N/A"}</p>
+            <p className='text-base font-medium mb-2 '><strong>Email: </strong>{selectedUser.email|| "N/A"}</p>
+            <p className='text-base font-medium mb-2 '><strong> Address: </strong>{selectedUser.address|| "N/A"}</p>
+            <p className='text-base font-medium mb-2 '>
               <strong> Cart Details:</strong>{ " " }
               {selectedUser.cart
               ?`Cart ID :${selectedUser.cart.cartId} (${selectedUser.cart.items} items | NPR ${selectedUser.Cart.total})`

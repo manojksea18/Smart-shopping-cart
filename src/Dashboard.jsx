@@ -115,7 +115,7 @@ const Dashboard=()=> {
         <div className=''>
     <div className='space-y-6 mt-0 '>
         <div className='h-20 bg-white font-bold text-lg  p-4 rounded shadow-sm  flex items-center justify-between'>
-            <h1 className=''>🏠 Dashboard</h1>
+            <h1 className=''> Dashboard</h1>
             
         <div className='flex flex-row '>
          <div className='mr-10 '>
