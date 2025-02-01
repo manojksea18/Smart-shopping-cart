@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 
 
+
 const Sidebar =()=> {
   return (
     <div className='  mt-5 w-64 h-full border-r  bg-white '>
@@ -11,18 +12,18 @@ const Sidebar =()=> {
       </div>
       <nav className='flex flex-col space-x-2 p-3' >
         <Link to='/dash' className=' hover:bg-gray-200 p-1 rounded'>
-        Dashboard
+        🏠 Dashboard
         </Link>
         <Link to ='cart-management' className=' hover:bg-gray-200 p-2 rounded'>
-        Cart Management
+        🛒 Cart Management
         </Link>
         <Link to ='users-management' className=' hover:bg-gray-200 p-2 rounded'>
-        Users 
+        👥 Users 
         </Link>
         <Link to ='settings' className=' hover:bg-gray-200 p-2 rounded'>
-        setting 
+        ⚙️ setting 
         </Link>
-        <a href='#'className=' hover:bg-gray-200 p-2 rounded'> Reports</a>
+        <a href='#'className=' hover:bg-gray-200 p-2 rounded'>📊 Reports</a>
 
 
       </nav>
