@@ -57,7 +57,7 @@ const Users =() => {
         <div>
         <input
         type='text'
-        placeholder='🔍 Search users, cart ID...'
+        placeholder='Search users, cart ID...'
         value={searchQuery}
         onChange={(e)=> setSearchQuery(e.target.value)}
         className='w-full p-2 mb-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-400'/>
@@ -67,9 +67,9 @@ const Users =() => {
         <div className=' bg-gray-200'>
         <table>
             <tr className='mt-10  p-3 '>
-                <th > <button className='p-3 text-base font-medium rounded-lg transition-all duration-300  text-gray-700 hover:bg-purple-300 hover:text-black hover:shadow-md transform hover:scale-110' onClick={() => setUsers(activeCarts)}>Show Active Carts</button></th>
-                <th > <button className='p-3 ml-5 text-base font-medium rounded-lg transition-all duration-300  text-gray-700 hover:bg-purple-300 hover:text-black hover:shadow-md transform hover:scale-110' onClick={() => setUsers(inactiveCarts)}>Show Inactive Carts</button></th>
-                <th > <button className='p-3 ml-5 text-base font-medium rounded-lg transition-all duration-300  text-gray-700 hover:bg-purple-300 hover:text-black hover:shadow-md transform hover:scale-110' onClick={() => setUsers(availableCarts)}>Show Available Carts</button></th>
+                <th > <button className='p-3 text-base font-medium rounded-lg transition-all duration-300  text-gray-700 hover:bg-purple-200 hover:text-black hover:shadow-md transform hover:scale-110' onClick={() => setUsers(activeCarts)}>Show Active Carts</button></th>
+                <th > <button className='p-3 ml-5 text-base font-medium rounded-lg transition-all duration-300  text-gray-700 hover:bg-purple-200 hover:text-black hover:shadow-md transform hover:scale-110' onClick={() => setUsers(inactiveCarts)}>Show Inactive Carts</button></th>
+                <th > <button className='p-3 ml-5 text-base font-medium rounded-lg transition-all duration-300  text-gray-700 hover:bg-purple-200 hover:text-black hover:shadow-md transform hover:scale-110' onClick={() => setUsers(availableCarts)}>Show Available Carts</button></th>
             </tr>
             </table>
             
