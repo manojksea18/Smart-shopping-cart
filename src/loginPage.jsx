@@ -46,6 +46,8 @@ const LoginPage=()=>{
         setLoading(false);
       }
     };
+     // Logout function
+  
     
     
       return (
@@ -81,6 +83,8 @@ const LoginPage=()=>{
         className='px-4 py-2 font-semibold rounded bg-blue-400 mt-5'>
         Submit</button>
         </form>
+  
+       
 
         </div>
       )

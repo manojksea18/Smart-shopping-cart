@@ -51,7 +51,7 @@ const Users =() => {
   return (
     
         <div className=' h-screen bg-gray-100'>
-            <h1 className=' text-2xl font-bold mb-4 h-20 bg-white p-4'>Users Management</h1>
+            <h1 className=' text-2xl font-bold mb-4 h-20 bg-white p-4 text-gray-700'>Users Management</h1>
 
             {/* Search Bar */}
         <div>

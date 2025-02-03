@@ -2,7 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FiHome, FiShoppingCart, FiUsers, FiSettings, FiFileText } from "react-icons/fi"; // Import icons
 
+
 const Sidebar = () => {
+
   return (
     <div className="w-64  bg-white border-r shadow-md flex flex-col">
       {/* Sidebar Header */}
@@ -31,5 +33,7 @@ const NavItem = ({ to, icon, label }) => (
     <span className="text-base font-medium">{label}</span>
   </Link>
 );
+
+
 
 export default Sidebar;

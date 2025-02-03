@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { db, collection, getDocs } from '../src/firebase'; // Import Firebase setupimport { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Title, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Line } from "react-chartjs-2";
-import { Chart as ChartJS,LineElement, ArcElement, PointElement, Tooltip, Legend, CategoryScale, LinearScale } from 'chart.js';
+
+  import { Chart as ChartJS,LineElement, ArcElement, PointElement, Tooltip, Legend, CategoryScale, LinearScale } from 'chart.js';
 
 ChartJS.register(
  LineElement,
@@ -17,6 +18,7 @@ ChartJS.register(
 
 
 import { Pie } from "react-chartjs-2";
+import { Navigate } from 'react-router-dom';
 
 const Dashboard=()=> {
 
@@ -27,6 +29,11 @@ const Dashboard=()=> {
     const [paymentMethods, setPaymentMethods] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [showDropdown, setShowDropdown] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(
+        localStorage.getItem("token") !== null
+      );
+
     // useEffect(()=>{
     //     if localStorage ma token xa vani Dashboard mai user lai rakhni
     //     else redirect to login
@@ -57,6 +64,21 @@ const Dashboard=()=> {
             };
             fetchData();
     }, []);
+
+
+
+      // Logout function
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Remove token
+    setIsAuthenticated(false);
+    alert("Logged out successfully!");
+    Navigate("/"); // Redirect to login
+  };
+
+  // Redirect if not authenticated
+  if (!isAuthenticated && localStorage.getItem("token") === null) {
+    return <Navigate to="/" />;
+  }
 
     const lineChartData={
         labels: ["Jan" ,"Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -114,16 +136,34 @@ const Dashboard=()=> {
     return (
         <div className=''>
     <div className='space-y-6 mt-0 '>
-        <div className='h-20 bg-white font-bold text-lg  p-4 rounded shadow-sm  flex items-center justify-between'>
+        <div className='h-20 bg-white font-bold text-2xl text-gray-700  p-4 rounded shadow-sm  flex items-center justify-between'>
             <h1 className=''> Dashboard</h1>
-            
-        <div className='flex flex-row '>
-         <div className='mr-10 '>
+
+        <div className='relative'>  
+        <div className='flex flex-row  cursor-pointer'
+         onClick={()=>setShowDropdown(!showDropdown)}>
+
+         <div className='mr-6  '>
          <p className="text-sm font-bold ">Manoj Khati</p>
             <p className="text-xs ">Store Manager</p>
             </div>   
             <h2 className='h-12 w-12 bg-gray-400 rounded-full text-center '>  MK</h2>
         </div>
+        </div>  
+
+        {showDropdown && (
+            <div className='absolute right-10 mt-20 w-20   rounded-lg z-10 space-y-5'>
+         <button
+          onClick={handleLogout}
+          className="px-2 py-2 font-semibold rounded-full bg-blue-400 mt-5"
+        >
+          Logout
+        </button>
+            </div>
+
+        )}
+                   
+
         
         </div>
         

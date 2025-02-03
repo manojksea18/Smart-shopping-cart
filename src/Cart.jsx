@@ -63,7 +63,7 @@ const Cart = () => {
     <div className=' h-screen bg-gray-100'>
       {/* Page Header */}
 
-        <h1 className='text-2xl font-bold mb-4 h-20 bg-white p-4'>  Cart Management
+        <h1 className='text-2xl font-bold mb-4 h-20 bg-white p-4 text-gray-700'>  Cart Management
         </h1>
 
       {/* Search Bar */}
@@ -255,6 +255,7 @@ const Cart = () => {
               <strong>Payment Method:</strong> {" "}
               {selectedUser.paymentMethod || "Cash"}
             </p>
+            <p className='mt-2'><strong >Total Bill:</strong> NPR {selectedUser.cart?.total || 0}</p>
             <div className = "flex justify-end mt-4">
               <button 
               className='bg-red-400 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition'
