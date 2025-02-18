@@ -55,99 +55,126 @@ const Cart = () => {
       );
     }, [searchQuery,users]);
 
-    
+    //anamika le gareko 
+
     
 
 
   return (
-    <div className=' h-screen bg-gray-100'>
+    <div className=' h-screen bg-gray-50'>
       {/* Page Header */}
 
-        <h1 className='text-2xl font-bold mb-4 h-20 bg-white p-4 text-gray-700'>  Cart Management
+        <h1 className='text-2xl font-bold mb-4 h-20 bg-white p-4 text-gray-800 shadow'>  Cart Management
         </h1>
 
       {/* Search Bar */}
-        <div>
-        <input
-        type='text'
-        placeholder='Search users, cart ID...'
-        value={searchQuery}
-        onChange={(e)=> setSearchQuery(e.target.value)}
-        
-        className='w-full p-2 mb-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-400'/>
-        </div>
+       <div className="px-4">
+      <input
+      type="text"
+      placeholder="Search users, cart ID..."
+      value={searchQuery}
+      onChange={(e) => setSearchQuery(e.target.value)}
+      className="w-full p-2 mb-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400"
+    />
+  </div>
 
 
-      {/* Filter Buttons */}
 
-        <div className=' bg-gray-200 '>
-            <table>
-            <tr className='mt-10  p-3 '>
-                <th > <button className='p-3 text-base font-medium rounded-lg transition-all duration-300  text-gray-700 hover:bg-purple-300 hover:text-black hover:shadow-md transform hover:scale-110' onClick={() => setUsers(activeCarts)}>Show Active Carts</button></th>
-                <th > <button className='p-3 ml-5 text-base font-medium rounded-lg transition-all duration-300  text-gray-700 hover:bg-purple-300 hover:text-black hover:shadow-md transform hover:scale-110' onClick={() => setUsers(inactiveCarts)}>Show Inactive Carts</button></th>
-                <th > <button className='p-3 ml-5 text-base font-medium rounded-lg transition-all duration-300  text-gray-700 hover:bg-purple-300 hover:text-black hover:shadow-md transform hover:scale-110' onClick={() => setUsers(availableCarts)}>Show Available Carts</button></th>
-            </tr>
-            </table>
-            </div>
-            <div className='bg-white rounded shadow overflow-hidden mt-10'>
-            <table className='table-auto w-full text-left'>
-            <thead className='bg-gray-100 h-10 shadow-md'>
-            
-    
-            <tr className=''>
-                <th className='p-4 '>User Name </th>
-                <th className='p-4 '>Phone Number </th>
-                <th className='p-4'>Cart Sessions </th>
-                <th className='p-4'>Payment Methods </th>
-                <th className='p-4'>Actions</th>
-
-            </tr>
-            
-        </thead>
-        <tbody>
-         {filteredUsers.length>0 ?(
-          filteredUsers.map((user) => (
-          <tr key={user.id} className="border-black shadow-md bg-purple-100">
-            <td className="p-4 mt-2">{user.name || "N/A"}</td>
-            <td className="p-4 mt-2">{user.phone || "N/A"}</td>
-            <td className="p-4 mt-2">
-          {user.cart ? (
-          <>
-            <span className="font-semibold">Active Cart: {user.cart.cartId}</span>
-            <br />
-            <span>({user.cart.items} items | NPR {user.cart.total})</span>
-          </>
-        ) : (
-          "No active cart"
-        )}
-      </td>
-      <td
-        className={`p-4 mt-2 ${
-          user.paymentMethod === "eSewa" ? "text-green-600" : "text-yellow-600"
-        }`}
+          {/* Filter Buttons */}
+    <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+    <div className="flex space-x-4 justify-center">
+      <button
+        className="p-3 text-base font-medium rounded-lg bg-blue-500 text-white hover:bg-blue-600 hover:shadow-md transform hover:scale-105 transition-all duration-300"
+        onClick={() => setUsers(activeCarts)}
       >
-        {user.paymentMethod || "Cash"}
-      </td>
-      <td className="p-4">
-        <button className="text-blue-600 hover:underline"
-        onClick={()=>{
-          setSelectedUser(user);
-          setShowModal(true);
+        Show Active Carts
+      </button>
+      <button
+        className="p-3 text-base font-medium rounded-lg bg-orange-500 text-white hover:bg-orange-600 hover:shadow-md transform hover:scale-105 transition-all duration-300"
+        onClick={() => setUsers(inactiveCarts)}
+      >
+        Show Inactive Carts
+      </button>
+      <button
+        className="p-3 text-base font-medium rounded-lg bg-green-500 text-white hover:bg-green-600 hover:shadow-md transform hover:scale-105 transition-all duration-300"
+        onClick={() => setUsers(availableCarts)}
+      >
+        Show Available Carts
+      </button>
+    </div>
+  </div>
+
+  {/* Table Section */}
+  <div className="bg-white rounded-lg shadow-md overflow-hidden mt-10">
+    <table className="table-auto w-full text-left">
+      <thead className="bg-gray-200 h-12 shadow-md">
+        <tr>
+          <th className="p-4">User Name</th>
+          <th className="p-4">Phone Number</th>
+          <th className="p-4">Cart Sessions</th>
+          <th className="p-4">Payment Methods</th>
+          <th className="p-4">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {filteredUsers.length > 0 ? (
+          filteredUsers.map((user) => (
+            <tr
+              key={user.id}
+              className="border-b border-gray-300 bg-gray-100 hover:bg-gray-200 transition-all duration-200"
+            >
+              <td className="p-4">{user.name || "N/A"}</td>
+              <td className="p-4">{user.phone || "N/A"}</td>
+              <td className="p-4">
+                {user.cart ? (
+                  <>
+                    <span className="font-semibold">
+                      Active Cart: {user.cart.cartId}
+                    </span>
+                    <br />
+                    <span>
+                      ({user.cart.items} items | NPR {user.cart.total})
+                    </span>
+                  </>
+                ) : (
+                  "No active cart"
+                )}
+              </td>
+              <td
+                className={`p-4 ${
+                  user.paymentMethod === "eSewa"
+                    ? "text-green-600"
+                    : "text-yellow-600"
+                }`}
+              >
+                {user.paymentMethod || "Cash"}
+              </td>
+              <td className="p-4">
+                <button
+                  className="text-blue-600 hover:underline hover:text-blue-800 transition-all"
+                  onClick={() => {
+                    setSelectedUser(user);
+                    setShowModal(true);
+                  }}
+                >
+                  View Details
+                </button>
+              </td>
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td
+              colSpan="5"
+              className="p-4 text-center text-gray-600 italic"
+            >
+              No users found.
+            </td>
+          </tr>
+        )}
+        </tbody>
 
 
-        }}
-        >View Details</button>
-      </td>
-    </tr>
-  ))
-  ):(
-  <tr>
-  <td colSpan="5" className="p-4 mt-5 text-center text-gray-600">
-    No users found.
-  </td>
-</tr>
-)}
-</tbody>
 
 
           {/* <tbody>
@@ -221,7 +248,7 @@ const Cart = () => {
                 </td>
             </tr>
              */}
-    </table>
+     </table>
       </div>
       
        {/* Modal with Animation */}
@@ -268,7 +295,7 @@ const Cart = () => {
           </div>
         </div>
       )}
-    </div>
+  </div>
   )
 }
 
