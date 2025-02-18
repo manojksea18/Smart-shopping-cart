@@ -6,6 +6,7 @@ import Cart from "./Cart";
 import Users from "./Users";
 import Setting from "./Setting";
 import LoginPage from "./loginPage";
+import Report from "./Report";
 
 
 const Index = () => {
@@ -32,6 +33,8 @@ const Index = () => {
                 <Route path='/cart-management' element={<Cart />}/>
                 <Route path='/users-management' element={<Users />}/>
                 <Route path='/settings' element={<Setting  />}/> 
+                <Route path='/report' element={<Report  />}/> 
+
 
             </Routes>
                 </div>

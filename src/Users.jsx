@@ -64,19 +64,29 @@ const Users =() => {
         </div>
 
 
-        <div className=' bg-gray-200'>
-        <table>
-            <tr className='mt-10  p-3 '>
-                <th > <button className='p-3 text-base font-medium rounded-lg transition-all duration-300  text-gray-700 hover:bg-purple-200 hover:text-black hover:shadow-md transform hover:scale-110' onClick={() => setUsers(activeCarts)}>Show Active Carts</button></th>
-                <th > <button className='p-3 ml-5 text-base font-medium rounded-lg transition-all duration-300  text-gray-700 hover:bg-purple-200 hover:text-black hover:shadow-md transform hover:scale-110' onClick={() => setUsers(inactiveCarts)}>Show Inactive Carts</button></th>
-                <th > <button className='p-3 ml-5 text-base font-medium rounded-lg transition-all duration-300  text-gray-700 hover:bg-purple-200 hover:text-black hover:shadow-md transform hover:scale-110' onClick={() => setUsers(availableCarts)}>Show Available Carts</button></th>
-            </tr>
-            </table>
-            
-     
-            
+    <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+    <div className="flex space-x-4 justify-center">
+      <button
+        className="p-3 text-base font-medium rounded-lg bg-blue-500 text-white hover:bg-blue-600 hover:shadow-md transform hover:scale-105 transition-all duration-300"
+        onClick={() => setUsers(activeCarts)}
+      >
+        Show Active Carts
+      </button>
+      <button
+        className="p-3 text-base font-medium rounded-lg bg-orange-500 text-white hover:bg-orange-600 hover:shadow-md transform hover:scale-105 transition-all duration-300"
+        onClick={() => setUsers(inactiveCarts)}
+      >
+        Show Inactive Carts
+      </button>
+      <button
+        className="p-3 text-base font-medium rounded-lg bg-green-500 text-white hover:bg-green-600 hover:shadow-md transform hover:scale-105 transition-all duration-300"
+        onClick={() => setUsers(availableCarts)}
+      >
+        Show Available Carts
+      </button>
+    </div>
+  </div>
 
-        </div>
         <div className=' bg-white rounded shadow overflow-hidden mt-10'>
             <table className='table-auto w-full text-left'>
                 <thead className='bg-gray-100 h-10'>
@@ -94,7 +104,7 @@ const Users =() => {
                     filteredUsers.map((user)=>(
 
                 
-                <tr className='bg-purple-100'>
+                <tr className='bg-gray-100 border-b border-gray-300 hover:bg-gray-200 transition-all duration-200'>
                 <td className='p-4'> {user.name}</td>
                 <td className="p-4">{user.email}</td>
                 <td className="p-4">{user.phone}</td>

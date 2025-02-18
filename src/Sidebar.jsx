@@ -18,7 +18,7 @@ const Sidebar = () => {
         <NavItem to="/cart-management" icon={<FiShoppingCart />} label="Cart Management" />
         <NavItem to="/users-management" icon={<FiUsers />} label="Users" />
         <NavItem to="/settings" icon={<FiSettings />} label="Settings" />
-        <NavItem to="#" icon={<FiFileText />} label="Reports" />
+        <NavItem to="/report" icon={<FiFileText />} label="Reports" />
       </nav>
     </div>
   );
