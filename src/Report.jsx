@@ -113,31 +113,31 @@ const Report=()=> {
         //     },
         //   },
     };
-    const pieChartData ={
-        labels: ["esewa", "Cash" , "Card"],
-        datasets:[
-            {
-                data: [50, 35, 20], // precentage of payment methods
-                backgroundColor:["#66BB6A", "#FFD54F", "#42A5F5"],
-                hoverBackgroundColor: ["#66BB6A", "#FFD54F", "#42A5F5"], // Colors on hover
-                borderWidth: 2
-            },
-        ],
-    };
+    // const pieChartData ={
+    //     labels: ["esewa", "Cash" , "Card"],
+    //     datasets:[
+    //         {
+    //             data: [50, 35, 20], // precentage of payment methods
+    //             backgroundColor:["#66BB6A", "#FFD54F", "#42A5F5"],
+    //             hoverBackgroundColor: ["#66BB6A", "#FFD54F", "#42A5F5"], // Colors on hover
+    //             borderWidth: 2
+    //         },
+    //     ],
+    // };
 
-    const pieChartOptions = {
-        responsive: true,
-        plugins:{
-            legend:{ display:true , postions: "right"
+    // const pieChartOptions = {
+    //     responsive: true,
+    //     plugins:{
+    //         legend:{ display:true , postions: "right"
                 
-            }
-        },
-    };
+    //         }
+    //     },
+    // };
     return (
         <div className=''>
     <div className='space-y-6 mt-0 '>
-        <div className='h-20 bg-white font-bold text-2xl text-gray-700  p-4 rounded shadow-sm  flex items-center justify-between'>
-            <h1 className=''> Report</h1>
+        <div className='h-20 bg-white font-bold text-2xl text-gray-700  p-4 rounded shadow-sm   flex items-center justify-between '>
+            <h1 className='mb-10'> Report</h1>
 {/* 
         <div className='relative'>  
         <div className='flex flex-row  cursor-pointer'
@@ -196,7 +196,7 @@ const Report=()=> {
         
         </div>
         
-        <div className='grid grid-cols-3 gap-4' >
+        <div className='grid grid-cols-3 gap-4 mt-7' >
             <div className='p-4 bg-white rounded shadow'>
             <h3 className='text-lg font-bold'> Total Sales</h3>
             <p className='text-2xl'>NPR {totalSales}</p>
@@ -222,14 +222,14 @@ const Report=()=> {
             </div>
             </div>
             
-            <div className='col-span-1 p-4 bg-white rounded shadow  '>
+            {/* <div className='col-span-1 p-4 bg-white rounded shadow  '>
             <h3 className='text-lg font-bold flex items-center '>Payment Methods</h3>
             <div className='h-72 w-full '>
             <Pie data={pieChartData} options={pieChartOptions} /> </div>
-            </div>
+            </div> */}
             
         </div>
-        <div className='p-4 bg-white rounded shadow h-52'>
+        <div className='p-4 bg-white rounded shadow h-52 mt-7'>
             <h3 className='text-lg font-bold'>Recent Activity</h3>
             <ul className='text-sm space-y-1'>
             <li>Anamika Rai - Cart A001 Completed</li>
